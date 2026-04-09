@@ -1,29 +1,10 @@
 import { cn } from '@/utils/cn';
 
-const projects = [
-  {
-    title: 'E-commerce Evolution',
-    description: 'A headless e-commerce store focusing on micro-interactions and seamless checkout experience.',
-    tags: ['Next.js', 'Tailwind', 'Stripe'],
-  },
-  {
-    title: 'Agency Relaunch',
-    description: 'Premium Awwwards-winning studio portfolio with WebGL and advanced layout animations.',
-    tags: ['Canvas', 'React', 'Framer Motion'],
-  },
-  {
-    title: 'Fintech Dashboard',
-    description: 'Data-rich user interface designed with a luxurious dark mode aesthetic and fluid layouts.',
-    tags: ['TypeScript', 'D3.js', 'Tailwind'],
-  },
-  {
-    title: 'Web3 Platform',
-    description: 'Decentralized application with immersive 3D elements and interactive scrollytelling.',
-    tags: ['Three.js', 'Next.js', 'Ethereum'],
-  },
-];
+type Project = typeof import('@/data/config.json').projects[number];
 
-export default function Projects({ className }: { className?: string }) {
+export default function Projects({ className, projects }: { className?: string; projects: Project[] }) {
+  if (!projects || !Array.isArray(projects)) return null;
+  
   return (
     <section className={cn("min-h-screen bg-[#121212] py-24 px-8 md:px-24", className)}>
       <div className="max-w-7xl mx-auto">

@@ -2,7 +2,15 @@
 
 import { motion, MotionValue, useTransform } from 'framer-motion';
 
-export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
+type OverlayContent = typeof import('@/data/config.json').overlay;
+
+export default function Overlay({ 
+  scrollYProgress, 
+  content 
+}: { 
+  scrollYProgress: MotionValue<number>;
+  content: OverlayContent;
+}) {
   // Section 1: 0% to 20%
   const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0]);
   const y1 = useTransform(scrollYProgress, [0, 0.25], [0, -100]);
@@ -18,6 +26,8 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
   const y3 = useTransform(scrollYProgress, [0.4, 0.6, 0.8], [100, 0, -100]);
   const display3 = useTransform(scrollYProgress, (pos) => (pos < 0.4 || pos > 0.8 ? "none" : "flex"));
 
+  if (!content) return null;
+
   return (
     <div className="absolute inset-0 z-10 pointer-events-none">
       {/* Section 1 - Center */}
@@ -26,10 +36,10 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute inset-0 flex-col items-center justify-center p-8 text-center"
       >
         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-4">
-          Sanglap Mridha
+          {content.section1.title}
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 font-medium">
-          Software Engineer
+          {content.section1.subtitle}
         </p>
       </motion.div>
 
@@ -39,7 +49,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute inset-0 flex-col items-start justify-center p-8 md:p-24"
       >
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white max-w-2xl text-balance">
-          I build digital<br />experiences.
+          {content.section2.line1}<br />{content.section2.line2}
         </h2>
       </motion.div>
 
@@ -49,7 +59,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute inset-0 flex-col items-end justify-center p-8 md:p-24 text-right"
       >
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white max-w-2xl text-balance">
-          Bridging design<br />and engineering.
+          {content.section3.line1}<br />{content.section3.line2}
         </h2>
       </motion.div>
     </div>

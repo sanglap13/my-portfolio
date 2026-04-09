@@ -5,9 +5,17 @@ import { useScroll, useTransform, useMotionValueEvent, motion } from 'framer-mot
 import { cn } from '@/utils/cn';
 import Overlay from './Overlay';
 
-const FRAME_COUNT = 120;
+const FRAME_COUNT = 110;
 
-export default function ScrollyCanvas({ className }: { className?: string }) {
+type OverlayContent = typeof import('@/data/config.json').overlay;
+
+export default function ScrollyCanvas({ 
+  className,
+  overlay
+}: { 
+  className?: string;
+  overlay: OverlayContent;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -75,7 +83,7 @@ export default function ScrollyCanvas({ className }: { className?: string }) {
             ref={canvasRef} 
             className="absolute inset-0 w-full h-full object-cover" 
           />
-          <Overlay scrollYProgress={scrollYProgress} />
+          <Overlay scrollYProgress={scrollYProgress} content={overlay} />
        </div>
     </div>
   );
