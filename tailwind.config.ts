@@ -13,6 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        sans: ['Geist', 'sans-serif'],
+        mono: ['Geist Mono', 'monospace'],
+      },
       animation: {
         "spin-slow": "spin 8s linear infinite",
       },

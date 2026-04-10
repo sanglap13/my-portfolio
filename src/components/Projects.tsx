@@ -1,8 +1,9 @@
 import { cn } from '@/utils/cn';
+import Link from 'next/link';
 
 type Project = typeof import('@/data/config.json').projects[number];
 
-export default function Projects({ className, projects }: { className?: string; projects: Project[] }) {
+export default function Projects({ className, projects, previewHref }: { className?: string; projects: Project[]; previewHref?: string }) {
   if (!projects || !Array.isArray(projects)) return null;
   
   return (
@@ -44,6 +45,13 @@ export default function Projects({ className, projects }: { className?: string; 
             </div>
           ))}
         </div>
+        {previewHref && (
+          <div className="mt-16 flex justify-center">
+            <Link href={previewHref} className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+              View All Projects
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

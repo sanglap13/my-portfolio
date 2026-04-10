@@ -1,12 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
 type CommunityData = typeof import('@/data/config.json').community;
 
-export default function Community({ data, className }: { data: CommunityData; className?: string }) {
+export default function Community({ data, previewHref, className }: { data: CommunityData; previewHref?: string; className?: string }) {
   const targetRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -29,6 +30,11 @@ export default function Community({ data, className }: { data: CommunityData; cl
             </h2>
             <p className="text-gray-400 text-lg max-w-md">Highlighting the incredible places I&apos;ve been and ideas I&apos;ve shared.</p>
         </div>
+        {previewHref && (
+          <Link href={previewHref} className="absolute right-8 md:right-24 top-24 px-6 py-3 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] z-10 flex items-center gap-2">
+            View All <span>&rarr;</span>
+          </Link>
+        )}
 
         <motion.div style={{ x }} className="flex gap-8 px-8 md:px-24 mt-32 w-[250%] md:w-[150%]">
           {data.map((item, idx) => (

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.geist-sans {
+  font-family: 'Geist', sans-serif;
+}
+
+.geist-mono {
+  font-family: 'Geist Mono', monospace;
+}
+
 @layer base {
   :root {
     --background: #121212;

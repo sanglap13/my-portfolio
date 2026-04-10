@@ -1,12 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
 type ExperienceData = typeof import('@/data/config.json').experience;
 
-export default function Experience({ data, className }: { data: ExperienceData; className?: string }) {
+export default function Experience({ data, previewHref, className }: { data: ExperienceData; previewHref?: string; className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -50,6 +51,13 @@ export default function Experience({ data, className }: { data: ExperienceData; 
                </div>
             ))}
           </div>
+          {previewHref && (
+            <div className="mt-16 flex justify-center">
+              <Link href={previewHref} className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                View All Experience
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>
