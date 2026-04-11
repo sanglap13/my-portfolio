@@ -11,14 +11,14 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="bg-[#121212] min-h-screen relative">
+    <main className="bg-transparent min-h-screen relative">
       <Navbar />
       <ScrollyCanvas overlay={config.overlay} />
       
       <PersonalSection data={config.about} />
 
       {/* Smooth transition into other preview sections */}
-      <div className="relative z-20 w-full bg-[#121212] overflow-hidden">
+      <div className="relative z-20 w-full bg-transparent overflow-hidden">
         <Experience data={config.experience.slice(0, 2)} previewHref="/experience" />
         <Projects projects={config.projects.slice(0, 2)} previewHref="/projects" />
         <Community data={config.community.slice(0, 3)} previewHref="/community" />

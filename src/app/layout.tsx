@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AmbientBackground from "@/components/AmbientBackground";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Sanglap Mridha | Software Developer",
@@ -13,8 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans text-white antialiased">
+      <body className="font-sans text-white antialiased bg-theme-bg">
+        <AmbientBackground />
         {children}
+        <Navbar />
       </body>
     </html>
   );

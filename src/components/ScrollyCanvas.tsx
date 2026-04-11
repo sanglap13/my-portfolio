@@ -78,7 +78,7 @@ export default function ScrollyCanvas({
   }, [images]);
 
   return (
-    <div ref={containerRef} className={cn("relative h-[500vh] w-full bg-[#121212]", className)}>
+    <div ref={containerRef} className={cn("relative h-[500vh] w-full bg-transparent", className)}>
        <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas 
             ref={canvasRef} 
