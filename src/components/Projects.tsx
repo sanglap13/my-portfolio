@@ -1,58 +1,90 @@
-import { cn } from '@/utils/cn';
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { staggerContainer, fadeUpVariant } from '@/utils/animations';
+import { cn } from '@/utils/cn';
+import config from '@/data/config.json';
 
-type Project = typeof import('@/data/config.json').projects[number];
+export default function Projects({ className }: { className?: string }) {
+  const { projects } = config;
+  const uc = projects.underConstructionConfig;
 
-export default function Projects({ className, projects, previewHref }: { className?: string; projects: Project[]; previewHref?: string }) {
-  if (!projects || !Array.isArray(projects)) return null;
-  
   return (
-    <section className={cn("min-h-screen bg-[#121212] py-24 px-8 md:px-24", className)}>
+    <motion.section
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      className={cn('py-24 px-6 md:px-24 bg-transparent', className)}
+    >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16">Selected Work</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div 
-              key={index}
-              className={cn(
-                "group relative p-8 md:p-12 rounded-3xl overflow-hidden cursor-pointer",
-                "bg-white/[0.03] border border-white/10 backdrop-blur-xl transition-all duration-700 ease-out",
-                "hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1",
-                "flex flex-col justify-between min-h-[350px]"
-              )}
-            >
-              {/* Subtle background gradient / glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
-              <div className="relative z-10 flex-col flex-grow">
-                <h3 className="text-3xl font-semibold text-white mb-4 tracking-tight">{project.title}</h3>
-                <p className="text-gray-400 text-lg mb-8 max-w-md leading-relaxed pr-8">
-                  {project.description}
-                </p>
-              </div>
+        <motion.div variants={fadeUpVariant} className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16">
+          <h2 className="geist-sans text-3xl md:text-5xl font-bold tracking-tight text-white mb-6 md:mb-0">
+            {projects.title}
+          </h2>
+          <Link
+            href="/projects"
+            className="geist-mono px-6 py-3 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-theme-indigo/10 hover:border-theme-indigo/50 hover:text-theme-indigo hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] w-fit flex items-center gap-2"
+          >
+            View All <span>&rarr;</span>
+          </Link>
+        </motion.div>
 
-              <div className="relative z-10 flex flex-wrap gap-3 mt-auto">
-                {project.tags.map(tag => (
-                  <span 
-                    key={tag} 
-                    className="px-4 py-1.5 text-sm font-medium text-gray-300 bg-white/5 shadow-inner shadow-white/5 rounded-full border border-white/10"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+        {projects.underConstruction ? (
+          /* Under Construction Placard */
+          <motion.div
+            variants={fadeUpVariant}
+            className="relative w-full rounded-[2rem] border border-dashed border-yellow-400/40 bg-yellow-400/[0.03] p-12 md:p-20 flex flex-col items-center justify-center text-center overflow-hidden"
+          >
+            {/* Diagonal stripes */}
+            <div
+              className="absolute inset-0 opacity-[0.04] pointer-events-none"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(45deg, #facc15 0px, #facc15 20px, transparent 20px, transparent 40px)',
+              }}
+            />
+
+            <motion.div
+              animate={{ rotate: [-3, 3, -3], y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="text-6xl md:text-8xl mb-8 select-none"
+            >
+              🚧
+            </motion.div>
+
+            <h3 className="geist-sans text-2xl md:text-4xl font-bold text-yellow-300 mb-4 drop-shadow-[0_0_20px_rgba(253,224,71,0.4)]">
+              {uc.heading}
+            </h3>
+            <p className="geist-mono text-gray-400 text-sm md:text-base max-w-md leading-relaxed mb-2">
+              {uc.subtext}
+            </p>
+            <p className="geist-mono text-gray-600 text-xs tracking-widest uppercase">{uc.eta}</p>
+
+            <div className="flex items-center gap-2 mt-8">
+              <motion.div
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+                className="w-2 h-2 rounded-full bg-yellow-400"
+              />
+              <span className="geist-mono text-xs text-yellow-400/70 tracking-widest uppercase">
+                {uc.statusLabel}
+              </span>
             </div>
-          ))}
-        </div>
-        {previewHref && (
-          <div className="mt-16 flex justify-center">
-            <Link href={previewHref} className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-              View All Projects
+
+            <Link
+              href="/projects"
+              className="mt-10 geist-mono px-8 py-3 bg-yellow-400/10 border border-yellow-400/30 rounded-full font-semibold text-yellow-300 transition-all duration-300 hover:bg-yellow-400/20 hover:border-yellow-400/60 hover:shadow-[0_0_20px_rgba(253,224,71,0.2)] text-sm"
+            >
+              {uc.ctaLabel} &rarr;
             </Link>
-          </div>
+          </motion.div>
+        ) : (
+          /* Future: render project cards here from projects.items */
+          <p className="geist-mono text-gray-500 text-center py-20">No projects yet.</p>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 }

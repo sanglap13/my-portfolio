@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Informal from '@/components/Informal';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import config from '@/data/config.json';
 
 export const metadata: Metadata = {
@@ -10,14 +11,12 @@ export const metadata: Metadata = {
 
 export default function InformalPage() {
   return (
-    <main className="bg-[#121212] min-h-screen relative flex flex-col pt-8 pb-32">
+    <main className="bg-[#121212] min-h-screen relative flex flex-col pt-8">
       <Navbar />
       <div className="flex-grow">
         <Informal data={config.informal} className="pt-24 min-h-screen flex flex-col justify-center" />
       </div>
-      <footer className="py-12 text-center text-gray-500 border-t border-white/5 mt-auto relative z-20">
-        <p>© {new Date().getFullYear()} {config.footer.text}</p>
-      </footer>
+      <Footer />
     </main>
   );
 }

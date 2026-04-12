@@ -31,15 +31,20 @@ export default function ScrollyCanvas({
     const loadedImages: HTMLImageElement[] = [];
 
     for (let i = 0; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        const paddedIndex = i.toString().padStart(3, '0');
-        img.src = `/sequence/frame_${paddedIndex}_delay-0.066s.webp`;
-        loadedImages.push(img);
+      const img = new Image();
+      const paddedIndex = i.toString().padStart(3, '0');
+      // Set onload BEFORE src so cache hits are not missed
+      if (i === 0) {
+        img.onload = () => setImages((prev) => (prev.length === 0 ? loadedImages : prev));
+      }
+      img.src = `/sequence/frame_${paddedIndex}_delay-0.066s.webp`;
+      loadedImages.push(img);
     }
-    
-    // Once first image loads, we trigger a re-render to draw it.
-    loadedImages[0].onload = () => setImages(loadedImages);
-    setImages(loadedImages);
+
+    // Handle the case where image 0 was already cached (complete synchronously)
+    if (loadedImages[0].complete) {
+      setImages(loadedImages);
+    }
   }, []);
 
   const renderFrame = (index: number) => {
@@ -48,21 +53,34 @@ export default function ScrollyCanvas({
       if (!ctx) return;
 
       const img = images[index];
-      if (img && img.complete) {
-          // Zoom less (10% total) and anchor to the top (sy = 0) so the head isn't cut off.
-          // We add a horizontal pan to shift the camera window rightwards, which moves the subject left (towards the center).
-          const zoomRatio = 0.10; 
-          const panOffset = 0.03; // Reduced to 3% pan for a softer shift
-          const sx = img.width * ((zoomRatio / 2) + panOffset);
+      if (!img) return;
+
+      const draw = (image: HTMLImageElement) => {
+          if (!canvasRef.current) return;
+          const drawCtx = canvasRef.current.getContext('2d');
+          if (!drawCtx) return;
+
+          const zoomRatio = 0.10;
+          const panOffset = 0.03;
+          const sx = image.width * ((zoomRatio / 2) + panOffset);
           const sy = 0;
-          const sWidth = img.width * (1 - zoomRatio);
-          const sHeight = img.height * (1 - zoomRatio);
-          
+          const sWidth = image.width * (1 - zoomRatio);
+          const sHeight = image.height * (1 - zoomRatio);
+
           canvasRef.current.width = sWidth;
           canvasRef.current.height = sHeight;
-          
-          // Draw the cropped portion
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+          drawCtx.drawImage(image, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+      };
+
+      if (img.complete) {
+          draw(img);
+      } else {
+          // Image not loaded yet — draw when ready (handles mid-scroll refresh)
+          img.onload = () => {
+              // Only draw if this is still the frame we need
+              const currentIndex = Math.round(frameIndex.get());
+              if (currentIndex === index) draw(img);
+          };
       }
   };
 
@@ -70,10 +88,11 @@ export default function ScrollyCanvas({
      renderFrame(Math.floor(latest));
   });
 
-  // Render initial frame on load
+  // Render the correct frame for the current scroll position when images first load
   useEffect(() => {
      if (images.length > 0 && images[0].complete) {
-        renderFrame(0);
+        const currentIndex = Math.round(frameIndex.get());
+        renderFrame(Math.max(0, Math.min(currentIndex, FRAME_COUNT - 1)));
      }
   }, [images]);
 

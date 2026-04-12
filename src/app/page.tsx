@@ -26,6 +26,7 @@ export default function Home() {
           data={[...config.community].sort((a, b) => (b.priority || 0) - (a.priority || 0)).slice(0, 5)} 
           previewHref="/community" 
         />
+        <Projects />
         <Informal data={config.informal} previewHref="/informal" />
         
         <Contact />
