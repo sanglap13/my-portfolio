@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
+import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
 type CommunityData = typeof import('@/data/config.json').community;
 
@@ -56,9 +57,18 @@ export default function Community({ data, previewHref, className }: { data: Comm
           </Link>
         )}
 
-        <motion.div ref={containerRef} style={{ x }} className="flex gap-4 md:gap-8 px-6 md:pl-24 md:pr-24 mt-20 md:mt-32 w-max items-center">
+        <motion.div 
+          ref={containerRef} 
+          style={{ x }} 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex gap-4 md:gap-8 px-6 md:pl-24 md:pr-24 mt-20 md:mt-32 w-max items-center"
+        >
           {data.map((item, idx) => (
-             <div 
+             <motion.div 
+               variants={fadeUpVariant}
                key={idx} 
                className="group relative h-[320px] md:h-[400px] w-[85vw] md:w-[500px] shrink-0 overflow-hidden rounded-[1.5rem] md:rounded-[2rem] bg-white/5 border border-white/10 p-6 md:p-8 flex flex-col justify-end"
              >
@@ -76,7 +86,7 @@ export default function Community({ data, previewHref, className }: { data: Comm
                    <h3 className="geist-sans text-3xl font-bold text-white mb-3 drop-shadow-md">{item.title}</h3>
                    <p className="geist-mono text-gray-300 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 drop-shadow-sm">{item.description}</p>
                 </div>
-             </div>
+             </motion.div>
           ))}
         </motion.div>
       </div>

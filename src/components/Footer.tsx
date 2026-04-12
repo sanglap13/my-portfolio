@@ -3,21 +3,29 @@
 import Link from 'next/link';
 import config from '@/data/config.json';
 import { cn } from '@/utils/cn';
+import { motion } from 'framer-motion';
+import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
 export default function Footer({ className }: { className?: string }) {
   return (
-    <footer className={cn("relative z-20 py-20 px-8 md:px-24 bg-black border-t border-white/10 overflow-hidden", className)}>
+    <motion.footer 
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={cn("relative z-20 py-20 px-8 md:px-24 bg-black border-t border-white/10 overflow-hidden", className)}
+    >
       
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
         
         {/* Branding & Sign-off */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <motion.div variants={fadeUpVariant} className="flex flex-col items-center md:items-start text-center md:text-left">
           <h2 className="geist-sans text-3xl font-bold text-white tracking-tight mb-2">Sanglap Mridha.</h2>
           <p className="geist-mono text-gray-400 text-sm">Building digital experiences, one line at a time.</p>
-        </div>
+        </motion.div>
 
         {/* Socials Matrix */}
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+        <motion.div variants={fadeUpVariant} className="flex flex-wrap justify-center gap-6 md:gap-10">
           {config.about.socials.map((social) => (
             <Link 
               key={social.name} 
@@ -38,15 +46,15 @@ export default function Footer({ className }: { className?: string }) {
             <span className="relative z-10">Contact</span>
             <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-theme-indigo transition-all duration-300 group-hover:w-full" />
           </Link>
-        </div>
+        </motion.div>
 
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs geist-mono text-gray-600 relative z-10">
+      <motion.div variants={fadeUpVariant} className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs geist-mono text-gray-600 relative z-10">
         <p>© {new Date().getFullYear()} {config.footer.text}</p>
         <p>Built with ❤️ using Next.js</p>
-      </div>
-    </footer>
+      </motion.div>
+    </motion.footer>
   );
 }

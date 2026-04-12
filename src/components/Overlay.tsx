@@ -32,12 +32,22 @@ export default function Overlay({
         style={{ opacity: opacity1, y: y1 }}
         className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center"
       >
-        <h1 className="geist-sans text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white/80 mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] font-extrabold leading-[1.2]">
+        <motion.h1 
+          initial={{ scale: 1.1, opacity: 0, filter: "blur(10px)" }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="geist-sans text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white/80 mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] font-extrabold leading-[1.2]"
+        >
           {content.section1.title}
-        </h1>
-        <p className="geist-mono text-xl md:text-3xl text-white/60 font-medium tracking-wide drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+          className="geist-mono text-xl md:text-3xl text-white/60 font-medium tracking-wide drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]"
+        >
           {content.section1.subtitle}
-        </p>
+        </motion.p>
       </motion.div>
 
       {/* Scroll Indicator */}

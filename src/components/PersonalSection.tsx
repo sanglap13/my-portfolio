@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
+import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
 type AboutData = typeof import('@/data/config.json').about;
 
@@ -32,11 +33,17 @@ export default function PersonalSection({ data }: { data: AboutData }) {
   if (!data) return null;
 
   return (
-    <section className="relative z-20 w-full bg-white/[0.02] backdrop-blur-3xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl">
+    <motion.section 
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className="relative z-20 w-full bg-white/[0.02] backdrop-blur-3xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
+    >
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 relative z-10">
         
         {/* Left Column: Bio & Socials */}
-        <div className="flex-1">
+        <motion.div variants={fadeUpVariant} className="flex-1">
           <h2 className="geist-sans text-sm font-bold tracking-widest text-theme-indigo mb-4 uppercase drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">About Me</h2>
           <h3 className="geist-sans text-4xl md:text-5xl font-bold tracking-tight bg-[linear-gradient(90deg,#fed7aa_0%,#ffffff_30%,#ffffff_70%,#6366f1_100%)] bg-clip-text text-transparent mb-8 leading-snug">
             {data.title}
@@ -59,10 +66,10 @@ export default function PersonalSection({ data }: { data: AboutData }) {
               </a>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Tabbed Content */}
-        <div className="md:w-1/3 flex flex-col pt-2 md:pt-0">
+        <motion.div variants={fadeLeftVariant} className="md:w-1/3 flex flex-col pt-2 md:pt-0">
           
           {/* Tabs */}
           <div className="flex gap-2 mb-8 bg-black/20 p-1.5 rounded-2xl border border-white/5 w-fit">
@@ -147,8 +154,8 @@ export default function PersonalSection({ data }: { data: AboutData }) {
             </AnimatePresence>
           </div>
 
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/utils/cn';
 import { motion, AnimatePresence } from 'framer-motion';
+import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
 type Intent = 'none' | 'resume' | 'email' | 'message';
 
@@ -53,8 +54,29 @@ export default function Contact({ className }: { className?: string }) {
   };
 
   return (
-    <section id="contact" className={cn("py-32 px-8 md:px-24 bg-transparent flex justify-center", className)}>
-      <div className="w-full max-w-4xl bg-black/40 border border-white/10 rounded-[2rem] p-8 md:p-16 backdrop-blur-2xl relative overflow-hidden">
+    <motion.section 
+      id="contact" 
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className={cn("py-32 px-8 md:px-24 bg-transparent flex justify-center relative overflow-hidden", className)}
+    >
+      {/* Ambient Moving Background Orbs */}
+      <motion.div 
+        animate={{ y: [0, -40, 0], x: [0, 30, 0], scale: [1, 1.2, 1], rotate: [0, 45, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-theme-indigo/10 blur-[120px] rounded-full pointer-events-none z-0"
+      />
+      <motion.div 
+        animate={{ y: [0, 40, 0], x: [0, -30, 0], scale: [1, 1.3, 1], rotate: [0, -45, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] bg-theme-amber/5 blur-[150px] rounded-full pointer-events-none z-0"
+      />
+      {/* Light Grid Pattern Overlay */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+
+      <motion.div variants={fadeUpVariant} className="w-full max-w-4xl bg-black/40 border border-white/10 rounded-[2rem] p-8 md:p-16 backdrop-blur-2xl relative overflow-hidden z-10 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-theme-indigo/10 blur-[100px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-theme-amber/10 blur-[100px] rounded-full" />
@@ -182,7 +204,7 @@ export default function Contact({ className }: { className?: string }) {
               )}
             </AnimatePresence>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

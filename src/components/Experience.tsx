@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
+import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
 type ExperienceData = typeof import('@/data/config.json').experience;
 
@@ -20,9 +21,16 @@ export default function Experience({ data, previewHref, className }: { data: Exp
   if (!data || !Array.isArray(data)) return null;
 
   return (
-    <section ref={containerRef} className={cn("py-32 px-8 md:px-24 bg-transparent max-w-7xl mx-auto", className)}>
+    <motion.section 
+      ref={containerRef} 
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className={cn("py-32 px-8 md:px-24 bg-transparent max-w-7xl mx-auto", className)}
+    >
       <div className="max-w-4xl mx-auto">
-        <h2 className="geist-sans text-4xl md:text-5xl font-bold tracking-tight text-white mb-24 drop-shadow-lg">Work & Experience</h2>
+        <motion.h2 variants={fadeUpVariant} className="geist-sans text-4xl md:text-5xl font-bold tracking-tight text-white mb-24 drop-shadow-lg">Work & Experience</motion.h2>
 
         <div className="relative pl-8 md:pl-0">
           {/* Vertical Line track */}
@@ -36,7 +44,7 @@ export default function Experience({ data, previewHref, className }: { data: Exp
 
           <div className="flex flex-col gap-20">
             {data.map((exp, index) => (
-               <div key={index} className="relative pl-8 md:pl-16 group">
+               <motion.div variants={fadeLeftVariant} key={index} className="relative pl-8 md:pl-16 group">
                  {/* Dot Track Indicator */}
                  <div className="absolute left-[-21px] md:left-[-25px] top-1.5 w-4 h-4 rounded-full bg-theme-bg border-[3px] border-white/20 z-20 transition-all duration-500 group-hover:border-theme-indigo group-hover:bg-theme-indigo/80 group-hover:shadow-[0_0_15px_rgba(99,102,241,0.8)]" />
 
@@ -48,7 +56,7 @@ export default function Experience({ data, previewHref, className }: { data: Exp
                    <h4 className="geist-mono text-xl text-gray-400 font-medium">{exp.company}</h4>
                    <p className="geist-mono text-gray-400 mt-3 leading-relaxed max-w-xl">{exp.description}</p>
                  </div>
-               </div>
+               </motion.div>
             ))}
           </div>
           {previewHref && (
@@ -60,6 +68,6 @@ export default function Experience({ data, previewHref, className }: { data: Exp
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
