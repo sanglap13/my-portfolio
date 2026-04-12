@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
@@ -9,38 +9,58 @@ type CommunityData = typeof import('@/data/config.json').community;
 
 export default function Community({ data, previewHref, className }: { data: CommunityData; previewHref?: string; className?: string }) {
   const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
-  // Calculate horizontal shift. -50% ensures it maps smoothly.
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  useEffect(() => {
+    const updateRange = () => {
+      if (containerRef.current) {
+        // Calculate exact overflow distance to translate
+        setScrollRange(Math.max(0, containerRef.current.scrollWidth - window.innerWidth));
+      }
+    };
+    updateRange();
+    window.addEventListener('resize', updateRange);
+    return () => window.removeEventListener('resize', updateRange);
+  }, [data]);
+
+  // Pixel-perfect translation guaranteed to stop at the last block
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   if (!data || !Array.isArray(data)) return null;
 
   return (
-    <section ref={targetRef} className={cn("relative h-[300vh] bg-[#121212]", className)}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+    <section ref={targetRef} className={cn("relative h-[200vh] bg-[#050505]", className)}>
+      <div className="sticky top-0 z-10 flex h-screen items-center overflow-hidden w-full">
+        
+        {/* Premium Dotted Background Pattern (Fixed & Subtle) */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(#ffffff20_1px,transparent_1px)] [background-size:16px_16px]" />
+        
+        {/* Edge Vignette to blend smoothly into the sections above and below */}
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,var(--theme-bg)_0%,transparent_10%,transparent_90%,var(--theme-bg)_100%)] pointer-events-none" />
         
         {/* Dynamic Typography Highlight */}
-        <div className="absolute top-24 left-8 md:left-24 z-10 w-full">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
-                Community <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">& Speaking</span>
+        <div className="absolute top-12 md:top-24 left-6 md:left-24 z-10 w-full drop-shadow-lg pr-6">
+            <h2 className="geist-sans text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">
+                Community <span className="bg-gradient-to-r from-theme-amber to-theme-indigo bg-clip-text text-transparent">& Speaking</span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-md">Highlighting the incredible places I&apos;ve been and ideas I&apos;ve shared.</p>
+            <p className="geist-mono text-gray-400 text-sm md:text-lg max-w-xs md:max-w-md">Highlighting the incredible places I've been and ideas I've shared.</p>
         </div>
         {previewHref && (
-          <Link href={previewHref} className="absolute right-8 md:right-24 top-24 px-6 py-3 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] z-10 flex items-center gap-2">
+          <Link href={previewHref} className="geist-mono absolute right-6 md:right-24 bottom-12 md:bottom-auto md:top-24 px-5 py-2.5 md:px-6 md:py-3 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-theme-indigo/10 hover:border-theme-indigo/50 hover:text-theme-indigo hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] z-10 flex items-center gap-2 text-sm md:text-base">
             View All <span>&rarr;</span>
           </Link>
         )}
 
-        <motion.div style={{ x }} className="flex gap-8 px-8 md:px-24 mt-32 w-[250%] md:w-[150%]">
+        <motion.div ref={containerRef} style={{ x }} className="flex gap-4 md:gap-8 px-6 md:pl-24 md:pr-24 mt-20 md:mt-32 w-max items-center">
           {data.map((item, idx) => (
              <div 
                key={idx} 
-               className="group relative h-[400px] w-full md:w-[500px] shrink-0 overflow-hidden rounded-[2rem] bg-white/5 border border-white/10 p-8 flex flex-col justify-end"
+               className="group relative h-[320px] md:h-[400px] w-[85vw] md:w-[500px] shrink-0 overflow-hidden rounded-[1.5rem] md:rounded-[2rem] bg-white/5 border border-white/10 p-6 md:p-8 flex flex-col justify-end"
              >
                 {/* Fallback pattern for images */}
                 <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#121212] via-[#121212]/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
@@ -53,8 +73,8 @@ export default function Community({ data, previewHref, className }: { data: Comm
                 </div>
 
                 <div className="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                   <h3 className="text-3xl font-bold text-white mb-3">{item.title}</h3>
-                   <p className="text-gray-300 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">{item.description}</p>
+                   <h3 className="geist-sans text-3xl font-bold text-white mb-3 drop-shadow-md">{item.title}</h3>
+                   <p className="geist-mono text-gray-300 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 drop-shadow-sm">{item.description}</p>
                 </div>
              </div>
           ))}

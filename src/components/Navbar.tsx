@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 const navItems = [
   { path: '/', label: 'Home' },
   { path: '/experience', label: 'Experience' },
-  { path: '/projects', label: 'Projects' },
+  // { path: '/projects', label: 'Projects' },
   { path: '/community', label: 'Community' },
   { path: '/informal', label: 'Beyond Code' },
 ];

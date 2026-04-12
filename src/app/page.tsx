@@ -6,6 +6,7 @@ import Informal from '@/components/Informal';
 import Navbar from '@/components/Navbar';
 import Contact from '@/components/Contact';
 import PersonalSection from '@/components/PersonalSection';
+import Footer from '@/components/Footer';
 import config from '@/data/config.json';
 import Link from 'next/link';
 
@@ -18,17 +19,18 @@ export default function Home() {
       <PersonalSection data={config.about} />
 
       {/* Smooth transition into other preview sections */}
-      <div className="relative z-20 w-full bg-transparent overflow-hidden">
+      <div className="relative z-20 w-full bg-transparent">
         <Experience data={config.experience.slice(0, 2)} previewHref="/experience" />
-        <Projects projects={config.projects.slice(0, 2)} previewHref="/projects" />
-        <Community data={config.community.slice(0, 3)} previewHref="/community" />
+        {/* <Projects projects={config.projects.slice(0, 2)} previewHref="/projects" /> */}
+        <Community 
+          data={[...config.community].sort((a, b) => (b.priority || 0) - (a.priority || 0)).slice(0, 5)} 
+          previewHref="/community" 
+        />
         <Informal data={config.informal} previewHref="/informal" />
         
         <Contact />
 
-        <footer className="py-12 text-center text-gray-500 border-t border-white/5">
-          <p>© {new Date().getFullYear()} {config.footer.text}</p>
-        </footer>
+        <Footer />
       </div>
     </main>
   );
