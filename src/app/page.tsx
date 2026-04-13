@@ -1,14 +1,13 @@
 import ScrollyCanvas from '@/components/ScrollyCanvas';
 import Projects from '@/components/Projects';
-import Experience from '@/components/Experience';
-import Community from '@/components/Community';
-import Informal from '@/components/Informal';
+import ExperiencePreview from '@/components/ExperiencePreview';
+import CommunityPreview from '@/components/CommunityPreview';
+import InformalPreview from '@/components/InformalPreview';
 import Navbar from '@/components/Navbar';
 import Contact from '@/components/Contact';
 import PersonalSection from '@/components/PersonalSection';
 import Footer from '@/components/Footer';
 import config from '@/data/config.json';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -20,14 +19,12 @@ export default function Home() {
 
       {/* Smooth transition into other preview sections */}
       <div className="relative z-20 w-full bg-transparent">
-        <Experience data={config.experience.slice(0, 2)} previewHref="/experience" />
-        {/* <Projects projects={config.projects.slice(0, 2)} previewHref="/projects" /> */}
-        <Community 
+        <ExperiencePreview data={config.experience} />
+        <CommunityPreview 
           data={[...config.community].sort((a, b) => (b.priority || 0) - (a.priority || 0)).slice(0, 5)} 
-          previewHref="/community" 
         />
         <Projects />
-        <Informal data={config.informal} previewHref="/informal" />
+        <InformalPreview data={config.informal} />
         
         <Contact />
 
