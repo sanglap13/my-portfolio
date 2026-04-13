@@ -12,15 +12,13 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <main className="bg-[#121212] min-h-screen relative flex flex-col">
+    <main className="bg-[#121212]">
       <Navbar />
       <ExperienceHero 
         title={config.experience.sectionTitle} 
         subtitle={config.experience.sectionSubtitle} 
       />
-      <div className="flex-grow">
-        <Experience data={config.experience} />
-      </div>
+      <Experience data={config.experience} />
       <Footer />
     </main>
   );
