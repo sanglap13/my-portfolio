@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Informal from '@/components/Informal';
+import InformalHero from '@/components/InformalHero';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import config from '@/data/config.json';
@@ -11,11 +12,10 @@ export const metadata: Metadata = {
 
 export default function InformalPage() {
   return (
-    <main className="bg-[#121212] min-h-screen relative flex flex-col pt-8">
+    <main className="bg-[#121212]">
       <Navbar />
-      <div className="flex-grow">
-        <Informal data={config.informal} className="pt-24 min-h-screen flex flex-col justify-center" />
-      </div>
+      <InformalHero />
+      <Informal data={config.informal} />
       <Footer />
     </main>
   );
