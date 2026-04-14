@@ -9,6 +9,7 @@ type CommunityEntry = {
   description: string;
   image: string;
   priority: number;
+  city: string;
 };
 
 // Derive role from title
@@ -16,9 +17,7 @@ function getRole(title: string): string {
   const lower = title.toLowerCase();
   if (lower.includes('lead')) return 'Lead';
   if (lower.includes('speaker')) return 'Speaker';
-  if (lower.includes('mentor/judge')) return 'Mentor & Judge';
-  if (lower.includes('mentor')) return 'Mentor';
-  if (lower.includes('judge')) return 'Judge';
+  if (lower.includes('mentor') || lower.includes('judge')) return 'Mentor & Judge';
   return 'Other';
 }
 
@@ -27,8 +26,6 @@ const roleColors: Record<string, { bg: string; border: string; text: string; glo
   'All':            { bg: 'bg-white/10',          border: 'border-white/20',          text: 'text-white',           glow: '' },
   'Lead':           { bg: 'bg-yellow-500/10',     border: 'border-yellow-500/20',     text: 'text-yellow-400',      glow: 'shadow-[0_0_20px_rgba(234,179,8,0.2)]' },
   'Speaker':        { bg: 'bg-theme-indigo/10',   border: 'border-theme-indigo/20',   text: 'text-theme-indigo',    glow: 'shadow-[0_0_20px_rgba(99,102,241,0.2)]' },
-  'Mentor':         { bg: 'bg-emerald-500/10',    border: 'border-emerald-500/20',    text: 'text-emerald-400',     glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]' },
-  'Judge':          { bg: 'bg-rose-500/10',       border: 'border-rose-500/20',       text: 'text-rose-400',        glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]' },
   'Mentor & Judge': { bg: 'bg-cyan-500/10',       border: 'border-cyan-500/20',       text: 'text-cyan-400',        glow: 'shadow-[0_0_20px_rgba(6,182,212,0.2)]' },
   'Other':          { bg: 'bg-gray-500/10',       border: 'border-gray-500/20',       text: 'text-gray-400',        glow: '' },
 };
@@ -51,12 +48,22 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
   // Compute stats
   const stats = useMemo(() => {
     const speakers = data.filter(d => getRole(d.title) === 'Speaker').length;
-    const hackathons = data.filter(d => ['Judge', 'Mentor', 'Mentor & Judge'].includes(getRole(d.title))).length;
+    const hackathons = data.filter(d => getRole(d.title) === 'Mentor & Judge').length;
+    
+    // Dynamic city counting using the new 'city' field
+    const uniqueCities = new Set(
+      data
+        .map(event => event.city)
+        .filter(city => city && city.toLowerCase() !== 'online')
+    );
+
+    const cityCount = uniqueCities.size;
+
     return [
       { label: 'Events', value: data.length + '+' },
       { label: 'Talks & Workshops', value: String(speakers) },
       { label: 'Hackathons', value: hackathons + '+' },
-      { label: 'Cities', value: '8+' },
+      { label: 'Cities', value: `${cityCount}+` },
     ];
   }, [data]);
 
@@ -202,8 +209,6 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
                   <div className={cn(
                     'absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500',
                     role === 'Speaker' ? 'via-theme-indigo/50' :
-                    role === 'Judge' ? 'via-rose-500/50' :
-                    role === 'Mentor' ? 'via-emerald-500/50' :
                     role === 'Mentor & Judge' ? 'via-cyan-500/50' :
                     role === 'Lead' ? 'via-yellow-500/50' :
                     'via-white/30'
