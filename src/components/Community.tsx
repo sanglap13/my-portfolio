@@ -1,16 +1,89 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
 type CommunityEntry = {
   title: string;
   description: string;
-  image: string;
+  image: string | string[];
   priority: number;
   city: string;
 };
+
+// Internal Carousel Component
+function ImageCarousel({ images }: { images: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [errorIndices, setErrorIndices] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  const handleImageError = (idx: number) => {
+    setErrorIndices(prev => new Set(prev).add(idx));
+  };
+
+  const currentImageHasError = errorIndices.has(index);
+
+  return (
+    <div className="relative w-full h-full group/carousel flex items-center justify-center bg-[#15151a]">
+      <AnimatePresence mode="wait">
+        {!currentImageHasError ? (
+          <motion.img
+            key={index}
+            src={images[index]}
+            alt="Carousel Step"
+            onError={() => handleImageError(index)}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <motion.div
+            key={`error-${index}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="p-8 text-center"
+          >
+             <p className="geist-mono text-[10px] text-gray-600 uppercase tracking-widest mb-2 font-bold opacity-50">Error 404</p>
+             <p className="geist-sans text-xs font-medium text-gray-500 italic max-w-[150px] mx-auto leading-relaxed">
+               "Faah!! Bros got lazy and didnot provide image"
+             </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Navigation dots */}
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIndex(i);
+              }}
+              className={cn(
+                "w-1.5 h-1.5 rounded-full transition-all duration-300 relative group/dot",
+                i === index ? "bg-white w-4" : "bg-white/30 hover:bg-white/50"
+              )}
+            >
+              <span className="absolute -inset-2 bg-transparent rounded-full" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // Derive role from title
 function getRole(title: string): string {
@@ -158,16 +231,15 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
                   transition={{ duration: 0.35, delay: idx * 0.03 }}
                   className="group relative rounded-2xl bg-[#1a1a1f] border border-white/[0.07] overflow-hidden hover:border-white/15 transition-all duration-500"
                 >
-                  {/* Image placeholder area */}
-                  <div className="relative h-48 w-full overflow-hidden bg-[#15151a]">
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:20px_20px] flex items-center justify-center">
-                      <span className="geist-mono text-xs text-gray-600 opacity-50">[ {item.image} ]</span>
-                    </div>
+                  {/* Image area */}
+                  <div className="relative h-56 w-full overflow-hidden bg-[#15151a]">
+                    <ImageCarousel images={Array.isArray(item.image) ? item.image : [item.image]} />
+                    
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1f] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1f] via-transparent to-transparent z-10" />
 
                     {/* Role badge */}
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 z-20">
                       <span className={cn(
                         'geist-mono text-[10px] px-3 py-1.5 rounded-full uppercase tracking-wider font-bold border',
                         colors.bg, colors.border, colors.text
@@ -177,13 +249,13 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
                     </div>
 
                     {/* Priority indicator */}
-                    <div className="absolute top-4 right-4 flex gap-1">
+                    <div className="absolute top-4 right-4 flex gap-1 z-20">
                       {Array.from({ length: Math.min(item.priority, 5) }).map((_, i) => (
                         <div
                           key={i}
                           className={cn(
                             'w-1.5 h-1.5 rounded-full',
-                            i < Math.ceil(item.priority / 2) ? 'bg-theme-amber/60' : 'bg-white/10'
+                            i < Math.ceil(item.priority / 2) ? 'bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'bg-white/10'
                           )}
                         />
                       ))}
@@ -207,7 +279,7 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
 
                   {/* Top accent line on hover */}
                   <div className={cn(
-                    'absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500',
+                    'absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30',
                     role === 'Speaker' ? 'via-theme-indigo/50' :
                     role === 'Mentor & Judge' ? 'via-cyan-500/50' :
                     role === 'Lead' ? 'via-yellow-500/50' :

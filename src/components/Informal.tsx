@@ -9,6 +9,8 @@ type InformalData = {
   creatorId: string;
   youtubeUrl: string;
   instagramUrl: string;
+  countriesCount: number;
+  statesCount: number;
   description: string;
   video: {
     title: string;
@@ -63,12 +65,12 @@ export default function InformalFull({ data, className }: { data: InformalData; 
                 <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Video Views</span>
               </div>
               <div className="flex flex-col">
-                <span className="geist-sans text-3xl font-bold text-white">10+</span>
-                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">States Explored</span>
+                <span className="geist-sans text-3xl font-bold text-white">{data.countriesCount}</span>
+                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Countries</span>
               </div>
               <div className="flex flex-col">
-                <span className="geist-sans text-3xl font-bold text-white">500+</span>
-                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Hours Riding</span>
+                <span className="geist-sans text-3xl font-bold text-white">{data.statesCount}+</span>
+                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">States Explored</span>
               </div>
             </div>
           </motion.div>
@@ -154,7 +156,7 @@ export default function InformalFull({ data, className }: { data: InformalData; 
                 <h2 className="geist-sans text-3xl md:text-5xl font-bold text-white tracking-tight">The Gallery</h2>
               </div>
               <p className="geist-mono text-xs text-gray-500 max-w-[200px] text-right hidden md:block uppercase tracking-wider leading-relaxed">
-                Moments frozen in time, captured across the diverse landscapes of India.
+                Moments frozen in time, captured across diverse landscapes and cultures as I explorer the world on two wheels.
               </p>
             </div>
 
@@ -168,8 +170,8 @@ export default function InformalFull({ data, className }: { data: InformalData; 
                   <div className="absolute inset-0 flex items-center justify-center text-xs font-mono text-gray-700">[ {data.photos[0]} ]</div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                   <div className="absolute bottom-10 left-10">
-                     <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">Road Trip · 2024</span>
-                     <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">Across the Valley</h4>
+                     <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">International Expedition · 2024</span>
+                     <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">Vietnam: Ha Giang Loop</h4>
                   </div>
               </motion.div>
 
