@@ -15,7 +15,13 @@ type CommunityEntry = {
 // Internal Carousel Component
 function ImageCarousel({ images }: { images: string[] }) {
   const [index, setIndex] = useState(0);
-  const [errorIndices, setErrorIndices] = useState<Set<number>>(new Set());
+  const [errorIndices, setErrorIndices] = useState<number[]>([]);
+
+  // Reset errors if the images array length changes (e.g. during updates)
+  useEffect(() => {
+    setErrorIndices([]);
+    setIndex(0);
+  }, [images.length]);
 
   useEffect(() => {
     if (images.length <= 1) return;
@@ -26,17 +32,17 @@ function ImageCarousel({ images }: { images: string[] }) {
   }, [images.length]);
 
   const handleImageError = (idx: number) => {
-    setErrorIndices(prev => new Set(prev).add(idx));
+    setErrorIndices(prev => [...prev, idx]);
   };
 
-  const currentImageHasError = errorIndices.has(index);
+  const currentImageHasError = !images[index] || errorIndices.includes(index);
 
   return (
     <div className="relative w-full h-full group/carousel flex items-center justify-center bg-[#15151a]">
       <AnimatePresence mode="wait">
         {!currentImageHasError ? (
           <motion.img
-            key={index}
+            key={`${images[index]}-${index}`}
             src={images[index]}
             alt="Carousel Step"
             onError={() => handleImageError(index)}
@@ -49,12 +55,12 @@ function ImageCarousel({ images }: { images: string[] }) {
         ) : (
           <motion.div
             key={`error-${index}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="p-8 text-center"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-8 text-center flex flex-col items-center justify-center"
           >
-             <p className="geist-mono text-[10px] text-gray-600 uppercase tracking-widest mb-2 font-bold opacity-50">Error 404</p>
-             <p className="geist-sans text-xs font-medium text-gray-500 italic max-w-[150px] mx-auto leading-relaxed">
+             <p className="geist-mono text-[10px] text-gray-600 uppercase tracking-[0.3em] mb-3 font-bold opacity-70">Error 404</p>
+             <p className="geist-sans text-[13px] font-medium text-gray-400 italic max-w-[180px] leading-relaxed">
                "Faah!! Bros got lazy and didnot provide image"
              </p>
           </motion.div>
