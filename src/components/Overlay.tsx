@@ -2,14 +2,14 @@
 
 import { motion, MotionValue, useTransform } from 'framer-motion';
 
-type OverlayContent = typeof import('@/data/config.json').overlay;
+import { Config } from '@/utils/config';
 
 export default function Overlay({ 
   scrollYProgress, 
   content 
 }: { 
   scrollYProgress: MotionValue<number>;
-  content: OverlayContent;
+  content: Config['overlay'];
 }) {
   // Section 1: 0% to 10% 
   const opacity1 = useTransform(scrollYProgress, [0, 0.04, 0.09, 0.10, 1], [1, 1, 0, 0, 0]);

@@ -7,9 +7,13 @@ import Navbar from '@/components/Navbar';
 import Contact from '@/components/Contact';
 import PersonalSection from '@/components/PersonalSection';
 import Footer from '@/components/Footer';
-import config from '@/data/config.json';
+import { syncConfig } from '@/services/configService';
+import { getServerConfig } from '@/lib/server/config';
 
-export default function Home() {
+export default async function Home() {
+  await syncConfig();
+  const config = getServerConfig();
+  
   return (
     <main className="bg-transparent min-h-screen relative">
       <Navbar />
@@ -23,12 +27,12 @@ export default function Home() {
         <CommunityPreview 
           data={[...config.community].sort((a, b) => (b.priority || 0) - (a.priority || 0)).slice(0, 5)} 
         />
-        <Projects />
+        <Projects data={config.projects} />
         <InformalPreview data={config.informal} />
         
         <Contact />
 
-        <Footer />
+        <Footer data={{ ...config.footer, about: config.about }} />
       </div>
     </main>
   );

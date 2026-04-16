@@ -6,14 +6,13 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-type ExperienceConfig = typeof import('@/data/config.json').experience;
-type TimelineEntry = ExperienceConfig['timeline'][number];
+import { Config } from '@/utils/config';
 
 export default function ExperiencePreview({
   data,
   className,
 }: {
-  data: ExperienceConfig;
+  data: Config['experience'];
   className?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +56,7 @@ export default function ExperiencePreview({
           />
 
           <div className="flex flex-col gap-16">
-            {previewTimeline.map((entry: TimelineEntry, idx: number) => (
+            {previewTimeline.map((entry: any, idx: number) => (
               <motion.div variants={fadeLeftVariant} key={idx} className="relative pl-8 md:pl-16 group">
                 {/* Dot */}
                 <div className="absolute left-[-21px] md:left-[-25px] top-1.5 w-4 h-4 rounded-full bg-theme-bg border-[3px] border-white/20 z-20 transition-all duration-500 group-hover:border-theme-indigo group-hover:bg-theme-indigo/80 group-hover:shadow-[0_0_15px_rgba(99,102,241,0.8)]" />

@@ -1,12 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import config from '@/data/config.json';
+import { Config, getConfig } from '@/utils/config';
 import { cn } from '@/utils/cn';
 import { motion } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
-export default function Footer({ className }: { className?: string }) {
+export default function Footer({ data, className }: { data?: Config['footer'] & { about?: Config['about'] }; className?: string }) {
+  const config = getConfig();
+  const footerData = data || config.footer;
+  const aboutData = data?.about || config.about;
   return (
     <motion.footer 
       variants={staggerContainer}
@@ -26,7 +29,7 @@ export default function Footer({ className }: { className?: string }) {
 
         {/* Socials Matrix */}
         <motion.div variants={fadeUpVariant} className="flex flex-wrap justify-center gap-6 md:gap-10">
-          {config.about.socials.map((social) => (
+          {aboutData.socials.map((social) => (
             <Link 
               key={social.name} 
               href={social.url}
@@ -52,7 +55,7 @@ export default function Footer({ className }: { className?: string }) {
 
       {/* Copyright */}
       <motion.div variants={fadeUpVariant} className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs geist-mono text-gray-600 relative z-10">
-        <p>© {new Date().getFullYear()} {config.footer.text}</p>
+        <p>© {new Date().getFullYear()} {footerData.text}</p>
         <p>Built with ❤️ using Next.js</p>
       </motion.div>
     </motion.footer>

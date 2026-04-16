@@ -7,9 +7,9 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 import MagneticButton from '@/components/MagneticButton';
 
-type InformalData = typeof import('@/data/config.json').informal;
+import { Config } from '@/utils/config';
 
-export default function InformalPreview({ data, className }: { data: InformalData; className?: string }) {
+export default function InformalPreview({ data, className }: { data: Config['informal']; className?: string }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 

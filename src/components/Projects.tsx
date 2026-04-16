@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 import { cn } from '@/utils/cn';
-import config from '@/data/config.json';
+import { Config, getConfig } from '@/utils/config';
 
-export default function Projects({ className }: { className?: string }) {
-  const { projects } = config;
+export default function Projects({ data, className }: { data?: Config['projects']; className?: string }) {
+  const config = getConfig();
+  const projects = data || config.projects;
   const uc = projects.underConstructionConfig;
 
   return (

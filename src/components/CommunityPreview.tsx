@@ -6,9 +6,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
-type CommunityData = typeof import('@/data/config.json').community;
+import { Config } from '@/utils/config';
 
-export default function CommunityPreview({ data, className }: { data: CommunityData; className?: string }) {
+export default function CommunityPreview({ data, className }: { data: Config['community']; className?: string }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);

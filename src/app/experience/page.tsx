@@ -3,14 +3,13 @@ import Experience from '@/components/Experience';
 import ExperienceHero from '@/components/ExperienceHero';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import config from '@/data/config.json';
+import { syncConfig } from '@/services/configService';
+import { getServerConfig } from '@/lib/server/config';
 
-export const metadata: Metadata = {
-  title: "Work Experience | Sanglap Mridha",
-  description: "Detailed information about my work experience and professional journey.",
-};
+export default async function ExperiencePage() {
+  await syncConfig();
+  const config = getServerConfig();
 
-export default function ExperiencePage() {
   return (
     <main className="bg-[#121212]">
       <Navbar />
@@ -19,7 +18,7 @@ export default function ExperiencePage() {
         subtitle={config.experience.sectionSubtitle} 
       />
       <Experience data={config.experience} />
-      <Footer />
+      <Footer data={{ ...config.footer, about: config.about }} />
     </main>
   );
 }

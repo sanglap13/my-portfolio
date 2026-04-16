@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-type AboutData = typeof import('@/data/config.json').about;
+import { Config } from '@/utils/config';
 
 const getSocialIcon = (name: string) => {
   const lowerName = name.toLowerCase();
@@ -27,7 +27,7 @@ const getSocialIcon = (name: string) => {
   return null;
 };
 
-export default function PersonalSection({ data }: { data: AboutData }) {
+export default function PersonalSection({ data }: { data: Config['about'] }) {
   const [activeTab, setActiveTab] = useState<'skills' | 'qualifications'>('skills');
 
   if (!data) return null;
@@ -137,7 +137,6 @@ export default function PersonalSection({ data }: { data: AboutData }) {
                   transition={{ duration: 0.2 }}
                   className="flex flex-col gap-6"
                 >
-                  {/* @ts-ignore - Qualifications was dynamically added to config types */}
                   {data.qualifications?.map((qual, idx) => (
                     <div key={idx} className="flex flex-col gap-1 border-l-2 border-theme-indigo/30 pl-4 py-1 relative">
                       <div className="absolute w-2 h-2 rounded-full bg-theme-indigo -left-[5px] top-2 shadow-[0_0_10px_rgba(99,102,241,0.8)]" />
