@@ -170,8 +170,8 @@ export default function InformalFull({ data, className }: { data: InformalData; 
                   <div className="absolute inset-0 flex items-center justify-center text-xs font-mono text-gray-700">[ {data.photos[0]} ]</div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                   <div className="absolute bottom-10 left-10">
-                     <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">International Expedition · 2024</span>
-                     <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">Vietnam: Ha Giang Loop</h4>
+                      <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">Mountain Expedition · 2024</span>
+                      <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">Hidden Trails & Overlooks</h4>
                   </div>
               </motion.div>
 
