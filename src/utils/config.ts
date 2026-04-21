@@ -40,6 +40,8 @@ export interface Config {
     statesCount: number;
     description: string;
     video: { title: string; placeholder: string };
+    heroImage: string;
+    reels: Array<{ src: string; youtubeUrl: string; instaUrl: string; views: string; likes: string; title: string }>;
     photos: string[];
     [key: string]: any;
   };
@@ -89,6 +91,8 @@ export const SKELETON_CONFIG: Config = {
       title: "",
       placeholder: ""
     },
+    heroImage: "",
+    reels: [],
     photos: []
   },
   footer: {

@@ -63,12 +63,23 @@ export default function InformalPreview({ data, className }: { data: Config['inf
               `,
             }}
           />
-          <div className="absolute inset-0 z-[-1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-theme-indigo/20 flex items-center justify-center backdrop-blur-md border border-theme-indigo/50 group-hover:bg-theme-indigo/40 group-hover:scale-110 transition-all duration-500">
-              <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-2" />
+          {data.heroImage ? (
+            <div className="absolute inset-0 z-[-1]">
+              <img src={data.heroImage} alt="Hero" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-black/40 flex items-center justify-center backdrop-blur-md border border-white/20 group-hover:bg-theme-indigo/60 group-hover:border-theme-indigo/50 group-hover:scale-110 transition-all duration-500">
+                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-2" />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
+          ) : (
+            <div className="absolute inset-0 z-[-1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full bg-theme-indigo/20 flex items-center justify-center backdrop-blur-md border border-theme-indigo/50 group-hover:bg-theme-indigo/40 group-hover:scale-110 transition-all duration-500">
+                <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-2" />
+              </div>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90 z-[-1]" />
 
           <p className="geist-mono text-sm font-bold tracking-widest text-theme-amber mb-3 uppercase relative z-10">
             Creator Spotlight
@@ -76,7 +87,6 @@ export default function InformalPreview({ data, className }: { data: Config['inf
           <h3 className="geist-sans text-3xl font-bold text-white relative z-10 mb-2">
             {data.video.title}
           </h3>
-          <p className="geist-mono text-gray-300 relative z-10">[ {data.video.placeholder} ]</p>
         </motion.div>
 
         {/* About / Identity Card */}
@@ -95,13 +105,17 @@ export default function InformalPreview({ data, className }: { data: Config['inf
           variants={fadeUpVariant}
           className="md:col-span-1 md:row-span-1 min-h-[250px] md:min-h-0 rounded-[2rem] bg-white/5 border border-white/10 relative overflow-hidden group hover:border-theme-amber/50 transition-colors"
         >
-          <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
-            <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">
-              🏍️
-            </span>
-            [ {data.photos[0]} ]
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-theme-amber/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          {data.photos && data.photos[0] ? (
+            <img src={data.photos[0]} alt="Gallery 1" className="absolute inset-0 w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
+              <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">
+                🏍️
+              </span>
+              [ {data.photos[0]} ]
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-theme-amber/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         </motion.div>
 
         {/* Photo 2 */}
@@ -109,13 +123,17 @@ export default function InformalPreview({ data, className }: { data: Config['inf
           variants={fadeUpVariant}
           className="md:col-span-1 md:row-span-1 min-h-[250px] md:min-h-0 rounded-[2rem] bg-white/5 border border-white/10 relative overflow-hidden group hover:border-theme-indigo/50 transition-colors"
         >
-          <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
-            <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">
-              📸
-            </span>
-            [ {data.photos[1]} ]
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-theme-indigo/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          {data.photos && data.photos[1] ? (
+            <img src={data.photos[1]} alt="Gallery 2" className="absolute inset-0 w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
+              <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">
+                📸
+              </span>
+              [ {data.photos[1]} ]
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-theme-indigo/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         </motion.div>
       </motion.div>
     </section>
