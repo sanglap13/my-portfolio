@@ -25,9 +25,14 @@ function ImageCarousel({ images }: { images: string[] }) {
 
   useEffect(() => {
     if (images.length <= 1) return;
+    
+    // Randomize the interval between 3500ms and 5500ms so each card drifts organically
+    const intervalTime = 3500 + Math.random() * 2000;
+    
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
+    }, intervalTime);
+
     return () => clearInterval(timer);
   }, [images.length]);
 
