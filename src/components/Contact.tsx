@@ -82,7 +82,7 @@ export default function Contact({ className }: { className?: string }) {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-theme-amber/10 blur-[100px] rounded-full" />
 
         <div className="relative z-10">
-            <h2 className="geist-sans text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">What's Next?</h2>
+            <h2 className="geist-sans text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">What&apos;s Next?</h2>
             <p className="geist-mono text-gray-400 mb-12 max-w-xl leading-relaxed">
               Whether you need to review my qualifications, have a direct conversation, or just want to drop a casual note, just click what you need.
             </p>
@@ -158,13 +158,13 @@ export default function Contact({ className }: { className?: string }) {
                     <button type="button" onClick={() => { setIntent('none'); setError(''); setSuccess(false); }} className="text-gray-400 hover:text-white transition-colors bg-white/5 px-4 py-2 rounded-lg geist-mono text-sm">
                       &larr; Back
                     </button>
-                    <h3 className="geist-sans text-xl font-bold text-white">Let's connect directly.</h3>
+                    <h3 className="geist-sans text-xl font-bold text-white">Let&apos;s connect directly.</h3>
                   </div>
-                  <p className="geist-mono text-gray-400 text-sm -mt-4">Drop your email below and I'll reach out to your inbox.</p>
+                  <p className="geist-mono text-gray-400 text-sm -mt-4">Drop your email below and I&apos;ll reach out to your inbox.</p>
                   <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email Address" className="geist-mono w-full bg-black/50 border border-white/10 rounded-xl px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-theme-amber/50 transition-colors" required disabled={isSubmitting || success} />
                   
                   {error && <p className="text-red-400 text-sm geist-mono">{error}</p>}
-                  {success && <p className="text-green-400 text-sm geist-mono">Saved! I'll reach out soon.</p>}
+                  {success && <p className="text-green-400 text-sm geist-mono">Saved! I&apos;ll reach out soon.</p>}
 
                   <button type="submit" disabled={isSubmitting || success} className="geist-sans px-8 py-4 bg-theme-amber/20 text-amber-400 font-semibold rounded-xl hover:bg-theme-amber hover:text-white border border-theme-amber/50 transition-all self-start shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] disabled:opacity-50 disabled:cursor-not-allowed">
                     {isSubmitting ? 'Requesting...' : 'Request Connection'}

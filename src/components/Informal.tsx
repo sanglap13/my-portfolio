@@ -41,7 +41,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
           >
             <p className="geist-mono text-xs uppercase tracking-[0.4em] text-theme-amber/60 mb-6 font-bold">The Philosophy</p>
             <h2 className="geist-sans text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-              Life isn't meant to be lived <span className="text-theme-amber underline decoration-theme-amber/30 underline-offset-8 italic">only</span> behind a screen.
+              Life isn&apos;t meant to be lived <span className="text-theme-amber underline decoration-theme-amber/30 underline-offset-8 italic">only</span> behind a screen.
             </h2>
             <p className="geist-mono text-gray-400 text-lg md:text-xl leading-relaxed max-w-xl">
               {data.description}
@@ -280,7 +280,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
           <div className="relative z-10 max-w-2xl mx-auto">
              <h2 className="geist-sans text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">Follow the Ride.</h2>
              <p className="geist-mono text-gray-400 text-lg mb-12">
-               I share my adventures and gear reviews as <span className="text-white font-bold">{data.creatorName}</span> across all social platforms. Let's explore together.
+               I share my adventures and gear reviews as <span className="text-white font-bold">{data.creatorName}</span> across all social platforms. Let&apos;s explore together.
              </p>
              <div className="flex flex-wrap justify-center gap-6">
                 <a href={data.youtubeUrl} target="_blank" rel="noopener noreferrer" className="geist-mono px-8 py-4 bg-white text-black rounded-full font-black hover:bg-theme-amber hover:scale-105 transition-all duration-300">YouTube</a>

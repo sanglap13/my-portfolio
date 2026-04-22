@@ -46,6 +46,7 @@ export default function ContactsPage() {
 
   useEffect(() => {
     fetchContacts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, statusFilter]);
 
   const handleStatusChange = async (id: string, status: string) => {

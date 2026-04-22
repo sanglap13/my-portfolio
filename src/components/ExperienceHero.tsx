@@ -35,6 +35,7 @@ export default function ExperienceHero({ title, subtitle, sequence }: { title: s
     }
 
     imagesRef.current = imgs;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sequence.baseUrl]);
 
   const drawFrame = (img: HTMLImageElement) => {
@@ -72,6 +73,7 @@ export default function ExperienceHero({ title, subtitle, sequence }: { title: s
 
     animId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagesLoaded]);
 
   return (

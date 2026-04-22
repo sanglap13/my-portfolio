@@ -35,6 +35,7 @@ export default function InformalHero({ sequence }: { sequence: SequenceConfig })
     }
 
     imagesRef.current = imgs;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sequence.baseUrl]);
 
   const drawFrame = (img: HTMLImageElement) => {
@@ -72,6 +73,7 @@ export default function InformalHero({ sequence }: { sequence: SequenceConfig })
 
     animId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagesLoaded]);
 
   return (
@@ -125,7 +127,7 @@ export default function InformalHero({ sequence }: { sequence: SequenceConfig })
           transition={{ duration: 0.6, delay: 0.6 }}
           className="geist-mono text-gray-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed"
         >
-          Meet <span className="text-white font-bold underline decoration-theme-amber/40 underline-offset-4">myth_op_gg</span>. When I'm not pushing production code, I'm rolling the throttle. Discover my journey through vlogs, travel, and adventure.
+          Meet <span className="text-white font-bold underline decoration-theme-amber/40 underline-offset-4">myth_op_gg</span>. When I&apos;m not pushing production code, I&apos;m rolling the throttle. Discover my journey through vlogs, travel, and adventure.
         </motion.p>
 
         {/* Horizontal rule */}

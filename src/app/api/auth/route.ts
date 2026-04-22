@@ -1,27 +1,7 @@
 import { NextResponse } from 'next/server';
-import { SignJWT, jwtVerify } from 'jose';
-
-const SECRET = new TextEncoder().encode(
-  process.env.ADMIN_PASSWORD || 'fallback-secret-change-me'
-);
+import { createToken } from '@/lib/auth';
 
 const COOKIE_NAME = 'admin_session';
-
-async function createToken() {
-  return new SignJWT({ role: 'admin' })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setExpirationTime('7d')
-    .sign(SECRET);
-}
-
-export async function verifyToken(token: string) {
-  try {
-    const { payload } = await jwtVerify(token, SECRET);
-    return payload;
-  } catch {
-    return null;
-  }
-}
 
 // POST: Login
 export async function POST(req: Request) {

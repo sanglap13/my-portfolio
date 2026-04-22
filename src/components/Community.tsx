@@ -66,7 +66,7 @@ function ImageCarousel({ images }: { images: string[] }) {
           >
              <p className="geist-mono text-[10px] text-gray-600 uppercase tracking-[0.3em] mb-3 font-bold opacity-70">Error 404</p>
              <p className="geist-sans text-[13px] font-medium text-gray-400 italic max-w-[180px] leading-relaxed">
-               "Faah!! Bros got lazy and didnot provide image"
+               &ldquo;Faah!! Bros got lazy and didnot provide image&rdquo;
              </p>
           </motion.div>
         )}

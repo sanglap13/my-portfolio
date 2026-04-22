@@ -47,6 +47,7 @@ export default function ScrollyCanvas({
     if (loadedImages[0].complete) {
       setImages(loadedImages);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sequence.baseUrl]);
 
   const renderFrame = (index: number) => {
@@ -96,6 +97,7 @@ export default function ScrollyCanvas({
         const currentIndex = Math.round(frameIndex.get());
         renderFrame(Math.max(0, Math.min(currentIndex, FRAME_COUNT - 1)));
      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   return (
