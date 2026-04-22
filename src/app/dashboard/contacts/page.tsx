@@ -198,7 +198,7 @@ export default function ContactsPage() {
               {/* Expanded details */}
               {expandedId === contact._id && (
                 <div className="border-t border-white/[0.06] px-4 py-4 space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
                       <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Name</p>
                       <p className="text-white font-mono">{contact.senderName || '—'}</p>

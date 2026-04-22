@@ -57,7 +57,7 @@ export default function Experience({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      className={cn('py-32 px-4 md:px-12 bg-transparent max-w-7xl mx-auto relative', className)}
+      className={cn('py-32 px-6 md:px-24 bg-transparent max-w-7xl mx-auto relative overflow-hidden', className)}
     >
       {/* ─── AMBIENT BACKGROUND (full screen) ─── */}
       <div className="fixed-bg pointer-events-none absolute -inset-x-[50vw] inset-y-0 overflow-hidden">

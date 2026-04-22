@@ -14,6 +14,7 @@ const navItems = [
   { label: 'Community', href: '/dashboard/community', icon: '◎' },
   { label: 'Beyond the Code', href: '/dashboard/informal', icon: '◌' },
   { label: 'Footer', href: '/dashboard/footer', icon: '◁' },
+  { label: 'Sequences', href: '/dashboard/sequences', icon: '▦' },
   { type: 'divider', label: 'Management' },
   { label: 'Contact Requests', href: '/dashboard/contacts', icon: '✉' },
 ];

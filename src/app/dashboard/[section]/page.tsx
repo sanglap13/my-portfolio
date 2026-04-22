@@ -10,6 +10,7 @@ import ProjectsEditor from '@/components/dashboard/editors/ProjectsEditor';
 import CommunityEditor from '@/components/dashboard/editors/CommunityEditor';
 import InformalEditor from '@/components/dashboard/editors/InformalEditor';
 import FooterEditor from '@/components/dashboard/editors/FooterEditor';
+import SequencesEditor from '@/components/dashboard/editors/SequencesEditor';
 
 const editorMap: Record<string, React.ComponentType<any>> = {
   overlay: OverlayEditor,
@@ -18,6 +19,7 @@ const editorMap: Record<string, React.ComponentType<any>> = {
   projects: ProjectsEditor,
   community: CommunityEditor,
   informal: InformalEditor,
+  sequences: SequencesEditor,
   footer: FooterEditor,
 };
 
@@ -28,6 +30,7 @@ const sectionLabels: Record<string, string> = {
   projects: 'Projects',
   community: 'Community',
   informal: 'Beyond the Code',
+  sequences: 'Sequences',
   footer: 'Footer',
 };
 

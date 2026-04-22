@@ -193,7 +193,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
               {/* Large Feature Photo */}
               <motion.div
                 whileHover={{ scale: 0.98 }}
-                className="lg:col-span-2 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
+                className="aspect-square md:aspect-auto lg:col-span-2 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[0] ? (
                     <img src={data.photos[0]} alt="Gallery 1" className="absolute inset-0 w-full h-full object-cover" />
@@ -213,7 +213,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
               {/* Vertical Side Photo */}
               <motion.div
                 whileHover={{ scale: 0.98 }}
-                className="lg:col-span-1 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
+                className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[1] ? (
                     <img src={data.photos[1]} alt="Gallery 2" className="absolute inset-0 w-full h-full object-cover" />
@@ -232,7 +232,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
               {/* Top Right Photo */}
               <motion.div
                 whileHover={{ scale: 0.98 }}
-                className="lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
+                className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[2] ? (
                     <img src={data.photos[2]} alt="Gallery 3" className="absolute inset-0 w-full h-full object-cover" />
@@ -251,7 +251,7 @@ export default function InformalFull({ data, className }: { data: Config['inform
               {/* Bottom Right Photo */}
               <motion.div
                 whileHover={{ scale: 0.98 }}
-                className="lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
+                className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[3] ? (
                     <img src={data.photos[3]} alt="Gallery 4" className="absolute inset-0 w-full h-full object-cover" />

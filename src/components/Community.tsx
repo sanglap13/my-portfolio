@@ -149,7 +149,7 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
   if (!data || data.length === 0) return null;
 
   return (
-    <section className={cn('py-24 px-4 md:px-12 max-w-7xl mx-auto relative', className)}>
+    <section className={cn('py-24 px-6 md:px-24 max-w-7xl mx-auto relative overflow-hidden', className)}>
       {/* Ambient background */}
       <div className="pointer-events-none absolute -inset-x-[50vw] inset-y-0 overflow-hidden">
         <motion.div

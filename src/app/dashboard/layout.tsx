@@ -14,11 +14,9 @@ export default function DashboardLayout({
 
   if (isLoginPage) {
     return (
-      <html lang="en">
-        <body className="bg-[#0a0a0f] text-white antialiased min-h-screen">
-          {children}
-        </body>
-      </html>
+      <div className="bg-[#0a0a0f] text-white antialiased min-h-screen">
+        {children}
+      </div>
     );
   }
 
@@ -27,7 +25,7 @@ export default function DashboardLayout({
       <Sidebar />
       <div className="flex-1 flex flex-col ml-0 md:ml-64">
         <DashboardNavbar />
-        <main className="flex-1 p-6 md:p-8 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-8 overflow-x-hidden overflow-y-auto">
           {children}
         </main>
       </div>

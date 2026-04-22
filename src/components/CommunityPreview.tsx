@@ -75,9 +75,13 @@ export default function CommunityPreview({ data, className }: { data: Config['co
             >
               <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#121212] via-[#121212]/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="absolute inset-0 z-[-1] bg-white/5 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-                <div className="w-full h-full flex items-center justify-center opacity-30 text-sm font-mono text-gray-500">
-                  [ Image: {item.image} ]
-                </div>
+                {item.image && (
+                  <img 
+                    src={Array.isArray(item.image) ? item.image[0] : item.image} 
+                    alt={item.title} 
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                  />
+                )}
               </div>
 
               <div className="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
