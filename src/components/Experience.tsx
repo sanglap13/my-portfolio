@@ -6,7 +6,9 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-type ExperienceConfig = typeof import('@/data/config.json').experience;
+import { Config } from '@/utils/config';
+
+type ExperienceConfig = Config['experience'];
 type TimelineEntry = ExperienceConfig['timeline'][number];
 type WorkEntry = ExperienceConfig['works'][number];
 
@@ -127,7 +129,7 @@ export default function Experience({
 
                   {/* Roles within the company */}
                   <div className="flex flex-col gap-4 mt-2">
-                    {entry.roles.map((role, roleIdx) => (
+                    {entry.roles.map((role: any, roleIdx: number) => (
                       <div
                         key={roleIdx}
                         className={cn(
@@ -157,7 +159,7 @@ export default function Experience({
                   {/* Tech Stack */}
                   {entry.techStack && entry.techStack.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {entry.techStack.map((tech, idx) => (
+                      {entry.techStack.map((tech: string, idx: number) => (
                         <span
                           key={idx}
                           className="geist-mono text-[10px] px-3 py-1 bg-black/40 border border-white/10 rounded-full text-gray-400 hover:text-theme-indigo hover:border-theme-indigo/30 transition-colors"
@@ -294,7 +296,7 @@ export default function Experience({
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-1.5 mt-auto pt-3 relative z-10">
-                      {work.tags.map((tag, tIdx) => (
+                      {work.tags.map((tag: string, tIdx: number) => (
                         <span
                           key={tIdx}
                           className="geist-mono text-[10px] px-2.5 py-1 bg-white/[0.03] border border-white/[0.07] rounded-full text-gray-600 group-hover:text-gray-400 group-hover:border-white/10 transition-all duration-300"
@@ -374,7 +376,7 @@ export default function Experience({
               <div className="mb-2">
                 <span className="geist-mono text-[10px] text-gray-600 uppercase tracking-widest font-bold mb-3 block">Technologies</span>
                 <div className="flex flex-wrap gap-2">
-                  {selectedWork.tags.map((tag, tIdx) => (
+                  {selectedWork.tags.map((tag: string, tIdx: number) => (
                     <span
                       key={tIdx}
                       className="geist-mono text-xs px-3.5 py-1.5 bg-white/[0.04] border border-white/10 rounded-full text-gray-400 hover:text-theme-indigo hover:border-theme-indigo/30 transition-all duration-300"

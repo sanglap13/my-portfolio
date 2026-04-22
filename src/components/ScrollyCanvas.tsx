@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useMotionValueEvent, motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import Overlay from './Overlay';
-import type { SequenceConfig } from '@/utils/config';
+import type { SequenceConfig, Config } from '@/utils/config';
 
-type OverlayContent = typeof import('@/data/config.json').overlay;
+type OverlayContent = Config['overlay'];
 
 export default function ScrollyCanvas({ 
   className,
