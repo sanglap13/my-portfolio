@@ -45,9 +45,21 @@ export interface Config {
     photos: string[];
     [key: string]: any;
   };
+  sequences: {
+    hero: SequenceConfig;
+    experience: SequenceConfig;
+    community: SequenceConfig;
+    informal: SequenceConfig;
+  };
   footer: {
     text: string;
   };
+}
+
+export interface SequenceConfig {
+  baseUrl: string;
+  frameCount: number;
+  framePattern: string;
 }
 
 // Skeleton used when config.json is missing or during initial sync
@@ -94,6 +106,12 @@ export const SKELETON_CONFIG: Config = {
     heroImage: "",
     reels: [],
     photos: []
+  },
+  sequences: {
+    hero: { baseUrl: '', frameCount: 0, framePattern: '' },
+    experience: { baseUrl: '', frameCount: 0, framePattern: '' },
+    community: { baseUrl: '', frameCount: 0, framePattern: '' },
+    informal: { baseUrl: '', frameCount: 0, framePattern: '' },
   },
   footer: {
     text: ""

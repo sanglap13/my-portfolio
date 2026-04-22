@@ -4,21 +4,24 @@ import { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useMotionValueEvent, motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import Overlay from './Overlay';
-
-const FRAME_COUNT = 110;
+import type { SequenceConfig } from '@/utils/config';
 
 type OverlayContent = typeof import('@/data/config.json').overlay;
 
 export default function ScrollyCanvas({ 
   className,
-  overlay
+  overlay,
+  sequence
 }: { 
   className?: string;
   overlay: OverlayContent;
+  sequence: SequenceConfig;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+
+  const FRAME_COUNT = sequence.frameCount || 110;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,24 +31,23 @@ export default function ScrollyCanvas({
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
 
   useEffect(() => {
+    if (!sequence.baseUrl) return;
     const loadedImages: HTMLImageElement[] = [];
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       const paddedIndex = i.toString().padStart(3, '0');
-      // Set onload BEFORE src so cache hits are not missed
       if (i === 0) {
         img.onload = () => setImages((prev) => (prev.length === 0 ? loadedImages : prev));
       }
-      img.src = `/sequence/frame_${paddedIndex}_delay-0.066s.webp`;
+      img.src = `${sequence.baseUrl}${sequence.framePattern.replace('{index}', paddedIndex)}`;
       loadedImages.push(img);
     }
 
-    // Handle the case where image 0 was already cached (complete synchronously)
     if (loadedImages[0].complete) {
       setImages(loadedImages);
     }
-  }, []);
+  }, [sequence.baseUrl]);
 
   const renderFrame = (index: number) => {
       if (images.length === 0 || !canvasRef.current) return;

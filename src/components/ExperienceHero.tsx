@@ -2,17 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import type { SequenceConfig } from '@/utils/config';
 
-const FRAME_COUNT = 192;
 const FPS = 24;
 
-export default function ExperienceHero({ title, subtitle }: { title: string; subtitle: string }) {
+export default function ExperienceHero({ title, subtitle, sequence }: { title: string; subtitle: string; sequence: SequenceConfig }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const imagesRef = useRef<HTMLImageElement[]>([]);
+  const FRAME_COUNT = sequence.frameCount || 192;
 
   // Preload all frames
   useEffect(() => {
+    if (!sequence.baseUrl) return;
     const imgs: HTMLImageElement[] = [];
     let loadedCount = 0;
 
@@ -22,19 +24,18 @@ export default function ExperienceHero({ title, subtitle }: { title: string; sub
       img.onload = () => {
         loadedCount++;
         if (loadedCount === 1) {
-          // Draw first frame immediately
           drawFrame(img);
         }
         if (loadedCount === FRAME_COUNT) {
           setImagesLoaded(true);
         }
       };
-      img.src = `/sequence_exp/frame_${paddedIndex}_delay-0.041s.webp`;
+      img.src = `${sequence.baseUrl}${sequence.framePattern.replace('{index}', paddedIndex)}`;
       imgs.push(img);
     }
 
     imagesRef.current = imgs;
-  }, []);
+  }, [sequence.baseUrl]);
 
   const drawFrame = (img: HTMLImageElement) => {
     const canvas = canvasRef.current;

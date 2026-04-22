@@ -2,17 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import type { SequenceConfig } from '@/utils/config';
 
-const FRAME_COUNT = 171;
 const FPS = 24;
 
-export default function InformalHero() {
+export default function InformalHero({ sequence }: { sequence: SequenceConfig }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const imagesRef = useRef<HTMLImageElement[]>([]);
+  const FRAME_COUNT = sequence.frameCount || 171;
 
   // Preload all frames
   useEffect(() => {
+    if (!sequence.baseUrl) return;
     const imgs: HTMLImageElement[] = [];
     let loadedCount = 0;
 
@@ -22,19 +24,18 @@ export default function InformalHero() {
       img.onload = () => {
         loadedCount++;
         if (loadedCount === 1) {
-          // Draw first frame immediately
           drawFrame(img);
         }
         if (loadedCount === FRAME_COUNT) {
           setImagesLoaded(true);
         }
       };
-      img.src = `/sequence_beyond/frame_${paddedIndex}_delay-0.041s.webp`;
+      img.src = `${sequence.baseUrl}${sequence.framePattern.replace('{index}', paddedIndex)}`;
       imgs.push(img);
     }
 
     imagesRef.current = imgs;
-  }, []);
+  }, [sequence.baseUrl]);
 
   const drawFrame = (img: HTMLImageElement) => {
     const canvas = canvasRef.current;

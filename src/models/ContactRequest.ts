@@ -18,6 +18,15 @@ const ContactRequestSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  status: {
+    type: String,
+    enum: ['unread', 'read', 'archived'],
+    default: 'unread',
+  },
+  starred: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -13,7 +13,7 @@ export default async function CommunityPage() {
   return (
     <main className="bg-[#121212]">
       <Navbar />
-      <CommunityHero />
+      <CommunityHero sequence={config.sequences?.community || { baseUrl: '', frameCount: 181, framePattern: '' }} />
       <CommunityFull data={config.community} />
       <Footer data={{ ...config.footer, about: config.about }} />
     </main>

@@ -13,7 +13,7 @@ export default async function InformalPage() {
   return (
     <main className="bg-[#121212]">
       <Navbar />
-      <InformalHero />
+      <InformalHero sequence={config.sequences?.informal || { baseUrl: '', frameCount: 171, framePattern: '' }} />
       <Informal data={config.informal} />
       <Footer data={{ ...config.footer, about: config.about }} />
     </main>

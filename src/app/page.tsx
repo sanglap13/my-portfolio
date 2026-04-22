@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className="bg-transparent min-h-screen relative">
       <Navbar />
-      <ScrollyCanvas overlay={config.overlay} />
+      <ScrollyCanvas overlay={config.overlay} sequence={config.sequences?.hero || { baseUrl: '', frameCount: 110, framePattern: '' }} />
       
       <PersonalSection data={config.about} />
 

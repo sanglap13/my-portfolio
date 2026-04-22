@@ -16,6 +16,7 @@ export default async function ExperiencePage() {
       <ExperienceHero 
         title={config.experience.sectionTitle} 
         subtitle={config.experience.sectionSubtitle} 
+        sequence={config.sequences?.experience || { baseUrl: '', frameCount: 192, framePattern: '' }}
       />
       <Experience data={config.experience} />
       <Footer data={{ ...config.footer, about: config.about }} />
