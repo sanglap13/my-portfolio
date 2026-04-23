@@ -3,6 +3,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
+import { getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 type CommunityEntry = {
   title: string;
@@ -114,7 +116,7 @@ const roleColors: Record<string, { bg: string; border: string; text: string; glo
   'Other':          { bg: 'bg-gray-500/10',       border: 'border-gray-500/20',       text: 'text-gray-400',        glow: '' },
 };
 
-export default function CommunityFull({ data, className }: { data: CommunityEntry[]; className?: string }) {
+export default function CommunityFull({ data, className, globalConfig }: { data: CommunityEntry[]; className?: string; globalConfig: Config['global'] }) {
   const [activeRole, setActiveRole] = useState('All');
 
   const sorted = useMemo(() =>
@@ -128,6 +130,14 @@ export default function CommunityFull({ data, className }: { data: CommunityEntr
   }, [sorted]);
 
   const filtered = activeRole === 'All' ? sorted : sorted.filter((e) => getRole(e.title) === activeRole);
+
+  if (globalConfig?.underConstruction?.community) {
+    return (
+      <section className={cn("py-24 bg-transparent relative z-10 w-full overflow-hidden px-4 md:px-8", className)}>
+        <UnderConstruction title="Community & Events" config={globalConfig.underConstructionConfig} variant="page" />
+      </section>
+    );
+  }
 
   // Compute stats
   const stats = useMemo(() => {

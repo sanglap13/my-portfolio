@@ -4,12 +4,21 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
-export default function InformalFull({ data, className }: { data: Config['informal']; className?: string }) {
+export default function InformalFull({ data, className, globalConfig }: { data: Config['informal']; className?: string; globalConfig: Config['global'] }) {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
 
   if (!data) return null;
+
+  if (globalConfig?.underConstruction?.informal) {
+    return (
+      <section className={cn('py-24 px-4 md:px-12 relative overflow-hidden', className)}>
+        <UnderConstruction title={data.title || "Beyond the Code"} config={globalConfig.underConstructionConfig} variant="page" />
+      </section>
+    );
+  }
 
   return (
     <section className={cn('py-24 px-4 md:px-12 relative overflow-hidden', className)}>

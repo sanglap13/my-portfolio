@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const sections = [
+  { key: 'global', label: 'Global Settings', icon: '⚙️', description: 'Under construction placard & site-wide settings' },
   { key: 'overlay', label: 'Overlay', icon: '◐', description: 'Hero section text & animations' },
   { key: 'about', label: 'About', icon: '◉', description: 'Bio, skills, qualifications, socials' },
   { key: 'experience', label: 'Experience', icon: '◆', description: 'Timeline & work history' },

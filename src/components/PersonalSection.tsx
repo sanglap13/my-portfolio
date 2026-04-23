@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 const getSocialIcon = (name: string) => {
   const lowerName = name.toLowerCase();
@@ -27,10 +28,24 @@ const getSocialIcon = (name: string) => {
   return null;
 };
 
-export default function PersonalSection({ data }: { data: Config['about'] }) {
+export default function PersonalSection({ data, globalConfig }: { data: Config['about']; globalConfig: Config['global'] }) {
   const [activeTab, setActiveTab] = useState<'skills' | 'qualifications'>('skills');
 
   if (!data) return null;
+
+  if (globalConfig?.underConstruction?.about) {
+    return (
+      <motion.section 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative z-20 w-full bg-white/[0.02] backdrop-blur-3xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
+      >
+        <UnderConstruction title="About Me" config={globalConfig.underConstructionConfig} variant="section" />
+      </motion.section>
+    );
+  }
 
   return (
     <motion.section 

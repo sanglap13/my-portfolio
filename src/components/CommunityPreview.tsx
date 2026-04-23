@@ -6,9 +6,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
-export default function CommunityPreview({ data, className }: { data: Config['community']; className?: string }) {
+export default function CommunityPreview({ data, className, globalConfig }: { data: Config['community']; className?: string; globalConfig: Config['global'] }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);
@@ -31,6 +32,14 @@ export default function CommunityPreview({ data, className }: { data: Config['co
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   if (!data || !Array.isArray(data)) return null;
+
+  if (globalConfig?.underConstruction?.community) {
+    return (
+      <section ref={targetRef} className={cn('py-32 px-8 md:px-24 bg-transparent max-w-7xl mx-auto', className)}>
+        <UnderConstruction title="Community & Events" config={globalConfig.underConstructionConfig} variant="section" />
+      </section>
+    );
+  }
 
   return (
     <section ref={targetRef} className={cn('relative h-[200vh] bg-[#050505]', className)}>

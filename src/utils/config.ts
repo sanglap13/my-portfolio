@@ -4,6 +4,23 @@ export interface Social {
 }
 
 export interface Config {
+  global: {
+    underConstruction: {
+      about: boolean;
+      experience: boolean;
+      community: boolean;
+      informal: boolean;
+      projects: boolean;
+      contact: boolean;
+    };
+    underConstructionConfig: {
+      heading: string;
+      subtext: string;
+      eta: string;
+      statusLabel: string;
+      ctaLabel: string;
+    };
+  };
   overlay: {
     section1: { title: string; subtitle: string };
     section2: { line1: string; line2: string };
@@ -23,9 +40,7 @@ export interface Config {
     works: any[];
   };
   projects: {
-    underConstruction: boolean;
     title: string;
-    underConstructionConfig: any;
     pageConfig: any;
     items: any[];
   };
@@ -64,6 +79,23 @@ export interface SequenceConfig {
 
 // Skeleton used when config.json is missing or during initial sync
 export const SKELETON_CONFIG: Config = {
+  global: {
+    underConstruction: {
+      about: false,
+      experience: false,
+      community: false,
+      informal: false,
+      projects: true,
+      contact: false
+    },
+    underConstructionConfig: {
+      heading: "We're currently building this page",
+      subtext: "Awesome things take time. Check back soon for updates.",
+      eta: "ETA: SOON",
+      statusLabel: "IN PROGRESS",
+      ctaLabel: "Return Home"
+    }
+  },
   overlay: {
     section1: { title: "", subtitle: "" },
     section2: { line1: "", line2: "" },
@@ -83,9 +115,7 @@ export const SKELETON_CONFIG: Config = {
     works: []
   },
   projects: {
-    underConstruction: true,
     title: "Projects",
-    underConstructionConfig: {},
     pageConfig: {},
     items: []
   },

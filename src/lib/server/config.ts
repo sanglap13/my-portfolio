@@ -13,7 +13,7 @@ export async function getServerConfig(): Promise<Config> {
     
     if (dbConfig) {
       const configData = dbConfig.toObject();
-      return configData as Config;
+      return { ...SKELETON_CONFIG, ...configData } as Config;
     }
   } catch (error) {
     console.error('Server Config Loader: Database fetch failed.', error);

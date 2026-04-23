@@ -17,12 +17,28 @@ export async function GET() {
     }
 
     const data = config.toObject();
-    delete data._id;
-    delete data.__v;
-    delete data.createdAt;
-    delete data.updatedAt;
+    
+    // Merge with SKELETON_CONFIG to ensure all fields exist
+    const { SKELETON_CONFIG } = require('@/utils/config');
+    const finalData = { 
+      ...SKELETON_CONFIG, 
+      ...data,
+      global: {
+        ...SKELETON_CONFIG.global,
+        ...(data.global || {}),
+        underConstruction: {
+          ...SKELETON_CONFIG.global.underConstruction,
+          ...(data.global?.underConstruction || {})
+        }
+      }
+    };
 
-    return NextResponse.json(data);
+    delete finalData._id;
+    delete finalData.__v;
+    delete finalData.createdAt;
+    delete finalData.updatedAt;
+
+    return NextResponse.json(finalData);
   } catch (error) {
     console.error('Config GET error:', error);
     return NextResponse.json({ error: 'Failed to fetch config.' }, { status: 500 });
@@ -46,12 +62,14 @@ export async function PATCH(req: Request) {
     for (const key of Object.keys(patch)) {
       config.set(key, patch[key]);
     }
+    config.markModified('global');
     config.markModified('overlay');
     config.markModified('about');
     config.markModified('experience');
     config.markModified('projects');
     config.markModified('community');
     config.markModified('informal');
+    config.markModified('sequences');
     config.markModified('footer');
 
     await config.save();

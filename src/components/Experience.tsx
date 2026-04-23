@@ -6,7 +6,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 type ExperienceConfig = Config['experience'];
 type TimelineEntry = ExperienceConfig['timeline'][number];
@@ -15,9 +16,11 @@ type WorkEntry = ExperienceConfig['works'][number];
 export default function Experience({ 
   data, 
   className,
+  globalConfig,
 }: { 
   data: ExperienceConfig; 
   className?: string;
+  globalConfig: Config['global'];
 }) {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -43,6 +46,21 @@ export default function Experience({
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   if (!data) return null;
+
+  if (globalConfig?.underConstruction?.experience) {
+    return (
+      <motion.section
+        ref={timelineRef}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        className={cn('py-24 px-6 md:px-24 bg-transparent', className)}
+      >
+        <UnderConstruction title={data.sectionTitle || 'Experience'} config={globalConfig.underConstructionConfig} variant="page" />
+      </motion.section>
+    );
+  }
 
   const timeline = data.timeline || [];
   const works = data.works || [];

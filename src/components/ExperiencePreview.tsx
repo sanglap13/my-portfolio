@@ -6,14 +6,17 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 export default function ExperiencePreview({
   data,
   className,
+  globalConfig,
 }: {
   data: Config['experience'];
   className?: string;
+  globalConfig: Config['global'];
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +28,21 @@ export default function ExperiencePreview({
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   if (!data) return null;
+
+  if (globalConfig?.underConstruction?.experience) {
+    return (
+      <motion.section
+        ref={containerRef}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        className={cn('py-32 px-8 md:px-24 bg-transparent max-w-7xl mx-auto', className)}
+      >
+        <UnderConstruction title={data.sectionTitle || 'Experience'} config={globalConfig.underConstructionConfig} variant="section" />
+      </motion.section>
+    );
+  }
 
   const previewTimeline = data.timeline.slice(0, 1);
 

@@ -9,10 +9,12 @@ import ExperienceEditor from '@/components/dashboard/editors/ExperienceEditor';
 import ProjectsEditor from '@/components/dashboard/editors/ProjectsEditor';
 import CommunityEditor from '@/components/dashboard/editors/CommunityEditor';
 import InformalEditor from '@/components/dashboard/editors/InformalEditor';
+import GlobalEditor from '@/components/dashboard/editors/GlobalEditor';
 import FooterEditor from '@/components/dashboard/editors/FooterEditor';
 import SequencesEditor from '@/components/dashboard/editors/SequencesEditor';
 
 const editorMap: Record<string, React.ComponentType<any>> = {
+  global: GlobalEditor,
   overlay: OverlayEditor,
   about: AboutEditor,
   experience: ExperienceEditor,
@@ -24,6 +26,7 @@ const editorMap: Record<string, React.ComponentType<any>> = {
 };
 
 const sectionLabels: Record<string, string> = {
+  global: 'Global Settings',
   overlay: 'Overlay',
   about: 'About',
   experience: 'Experience',
@@ -57,10 +60,16 @@ export default function SectionEditorPage() {
   const handleSave = async () => {
     setSaveStatus('saving');
     try {
+      const payload: any = { [section]: sectionData };
+      // Include global config if this section uses the underConstruction toggle
+      if (['experience', 'projects', 'community', 'informal'].includes(section) && config?.global) {
+        payload.global = config.global;
+      }
+
       const res = await fetch('/api/config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ [section]: sectionData }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error('Save failed');
@@ -74,6 +83,7 @@ export default function SectionEditorPage() {
   };
 
   const EditorComponent = editorMap[section];
+  const supportsUnderConstruction = !['global', 'sequences', 'footer'].includes(section);
 
   if (!EditorComponent) {
     return (
@@ -98,7 +108,7 @@ export default function SectionEditorPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">
             {sectionLabels[section] || section}
@@ -107,7 +117,34 @@ export default function SectionEditorPage() {
             Edit and save to update your portfolio
           </p>
         </div>
-        <SaveButton onClick={handleSave} status={saveStatus} />
+        
+        <div className="flex items-center gap-4">
+          {supportsUnderConstruction && config && (
+            <button
+              onClick={() => {
+                const global = config.global || { underConstruction: {} };
+                const uc = global.underConstruction || {};
+                setConfig({
+                  ...config,
+                  global: {
+                    ...global,
+                    underConstruction: {
+                      ...uc,
+                      [section]: !uc[section]
+                    }
+                  }
+                });
+              }}
+              className="flex items-center gap-3 bg-white/[0.02] border border-white/10 rounded-full px-4 py-2 hover:bg-white/[0.05] transition-colors"
+            >
+              <span className="text-xs font-mono text-gray-400 font-medium">Under Construction</span>
+              <div className={`w-10 h-5 rounded-full p-0.5 transition-colors ${(config.global?.underConstruction?.[section]) ? 'bg-amber-500' : 'bg-white/20'}`}>
+                <div className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${(config.global?.underConstruction?.[section]) ? 'translate-x-5' : 'translate-x-0'}`} />
+              </div>
+            </button>
+          )}
+          <SaveButton onClick={handleSave} status={saveStatus} />
+        </div>
       </div>
 
       {/* Editor */}

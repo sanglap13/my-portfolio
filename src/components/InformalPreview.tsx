@@ -7,7 +7,8 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 import MagneticButton from '@/components/MagneticButton';
 
-import { Config } from '@/utils/config';
+import { Config, getConfig } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 function GlowCard({ children, className, glowColor }: { children: React.ReactNode, className?: string, glowColor?: string }) {
   const mouseX = useMotionValue(0);
@@ -43,9 +44,17 @@ function GlowCard({ children, className, glowColor }: { children: React.ReactNod
   );
 }
 
-export default function InformalPreview({ data, className }: { data: Config['informal']; className?: string }) {
+export default function InformalPreview({ data, className, globalConfig }: { data: Config['informal']; className?: string; globalConfig: Config['global'] }) {
 
   if (!data) return null;
+
+  if (globalConfig?.underConstruction?.informal) {
+    return (
+      <section className={cn('py-32 px-8 md:px-24 bg-transparent max-w-7xl mx-auto', className)}>
+        <UnderConstruction title="Beyond the Code" config={globalConfig.underConstructionConfig} variant="section" />
+      </section>
+    );
+  }
 
   return (
     <section className={cn('py-20 md:py-32 px-6 md:px-24 bg-transparent', className)}>

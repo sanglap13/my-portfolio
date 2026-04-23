@@ -1,12 +1,14 @@
 import mongoose, { Schema, model, models } from 'mongoose';
 
 const ConfigSchema = new Schema({
+  global: { type: Schema.Types.Mixed },
   overlay: { type: Schema.Types.Mixed },
   about: { type: Schema.Types.Mixed },
   experience: { type: Schema.Types.Mixed },
   projects: { type: Schema.Types.Mixed },
   community: { type: Schema.Types.Mixed },
   informal: { type: Schema.Types.Mixed },
+  sequences: { type: Schema.Types.Mixed },
   footer: { type: Schema.Types.Mixed },
 }, { 
   timestamps: true,

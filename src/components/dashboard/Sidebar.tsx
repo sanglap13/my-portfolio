@@ -6,6 +6,9 @@ import { useState } from 'react';
 
 const navItems = [
   { label: 'Overview', href: '/dashboard', icon: '◈' },
+  { type: 'divider', label: 'Management' },
+  { label: 'Global Settings', href: '/dashboard/global', icon: '⚙️' },
+  { label: 'Contact Requests', href: '/dashboard/contacts', icon: '✉' },
   { type: 'divider', label: 'Content' },
   { label: 'Overlay', href: '/dashboard/overlay', icon: '◐' },
   { label: 'About', href: '/dashboard/about', icon: '◉' },
@@ -15,8 +18,6 @@ const navItems = [
   { label: 'Beyond the Code', href: '/dashboard/informal', icon: '◌' },
   { label: 'Footer', href: '/dashboard/footer', icon: '◁' },
   { label: 'Sequences', href: '/dashboard/sequences', icon: '▦' },
-  { type: 'divider', label: 'Management' },
-  { label: 'Contact Requests', href: '/dashboard/contacts', icon: '✉' },
 ];
 
 export default function Sidebar() {

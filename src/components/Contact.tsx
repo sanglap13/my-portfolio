@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { cn } from '@/utils/cn';
 import { motion, AnimatePresence } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
+import { Config } from '@/utils/config';
+import UnderConstruction from './UnderConstruction';
 
 type Intent = 'none' | 'resume' | 'email' | 'message';
 
-export default function Contact({ className }: { className?: string }) {
+export default function Contact({ className, globalConfig }: { className?: string; globalConfig: Config['global'] }) {
   const [intent, setIntent] = useState<Intent>('none');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,6 +54,21 @@ export default function Contact({ className }: { className?: string }) {
       setIsSubmitting(false);
     }
   };
+
+  if (globalConfig?.underConstruction?.contact) {
+    return (
+      <motion.section 
+        id="contact" 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className={cn("py-32 px-8 md:px-24 bg-transparent flex justify-center relative overflow-hidden", className)}
+      >
+        <UnderConstruction title="Contact" config={globalConfig.underConstructionConfig} variant="section" />
+      </motion.section>
+    );
+  }
 
   return (
     <motion.section 

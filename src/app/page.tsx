@@ -19,18 +19,19 @@ export default async function Home() {
       <Navbar />
       <ScrollyCanvas overlay={config.overlay} sequence={config.sequences?.hero || { baseUrl: '', frameCount: 110, framePattern: '' }} />
       
-      <PersonalSection data={config.about} />
+      <PersonalSection data={config.about} globalConfig={config.global} />
 
       {/* Smooth transition into other preview sections */}
       <div className="relative z-20 w-full bg-transparent">
-        <ExperiencePreview data={config.experience} />
+        <ExperiencePreview data={config.experience} globalConfig={config.global} />
         <CommunityPreview 
           data={[...config.community].sort((a, b) => (b.priority || 0) - (a.priority || 0)).slice(0, 5)} 
+          globalConfig={config.global}
         />
-        <Projects data={config.projects} />
-        <InformalPreview data={config.informal} />
+        <Projects data={config.projects} globalConfig={config.global} />
+        <InformalPreview data={config.informal} globalConfig={config.global} />
         
-        <Contact />
+        <Contact globalConfig={config.global} />
 
         <Footer data={{ ...config.footer, about: config.about }} />
       </div>
