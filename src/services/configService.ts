@@ -35,33 +35,6 @@ export async function syncConfig(force = false) {
       return dbConfig;
     }
 
-    // 4. Sync to Codebase: Write DB config back to local config.json 
-    // This ensures local imports like `@/data/config.json` remain up-to-date
-    const configData = dbConfig.toObject();
-    
-    // Remove MongoDB specific fields before writing to JSON
-    delete configData._id;
-    delete configData.__v;
-    delete configData.createdAt;
-    delete configData.updatedAt;
-
-    const updatedConfigContent = JSON.stringify(configData, null, 2);
-    
-    // Ensure the directory exists
-    const dir = path.dirname(CONFIG_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    // Only write if the content has changed or file is missing
-    const fileExists = fs.existsSync(CONFIG_FILE_PATH);
-    const currentConfigContent = fileExists ? fs.readFileSync(CONFIG_FILE_PATH, 'utf8') : null;
-    
-    if (!fileExists || updatedConfigContent !== currentConfigContent) {
-      fs.writeFileSync(CONFIG_FILE_PATH, updatedConfigContent, 'utf8');
-      console.log(fileExists ? '🔄 Codebase synced with MongoDB config.' : '📝 config.json recreated from MongoDB.');
-    }
-
     isSynced = true;
     return dbConfig;
   } catch (error) {

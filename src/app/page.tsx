@@ -12,7 +12,7 @@ import { getServerConfig } from '@/lib/server/config';
 
 export default async function Home() {
   await syncConfig();
-  const config = getServerConfig();
+  const config = await getServerConfig();
   
   return (
     <main className="bg-transparent min-h-screen relative">

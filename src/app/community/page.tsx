@@ -8,7 +8,7 @@ import { getServerConfig } from '@/lib/server/config';
 
 export default async function CommunityPage() {
   await syncConfig();
-  const config = getServerConfig();
+  const config = await getServerConfig();
 
   return (
     <main className="bg-[#121212]">

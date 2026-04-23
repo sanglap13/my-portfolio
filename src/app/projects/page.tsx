@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function ProjectsPage() {
   // Sync config from MongoDB to codebase
   await syncConfig();
-  const config = getServerConfig();
+  const config = await getServerConfig();
   
   const pc = config.projects.pageConfig;
   

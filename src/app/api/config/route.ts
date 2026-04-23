@@ -56,19 +56,13 @@ export async function PATCH(req: Request) {
 
     await config.save();
 
-    // Rewrite local config.json
+    console.log('✅ Config updated in MongoDB via dashboard PATCH.');
+    
     const configData = config.toObject();
     delete configData._id;
     delete configData.__v;
     delete configData.createdAt;
     delete configData.updatedAt;
-
-    const dir = path.dirname(CONFIG_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(CONFIG_FILE_PATH, JSON.stringify(configData, null, 2), 'utf8');
-    console.log('✅ config.json updated via dashboard PATCH.');
 
     return NextResponse.json({ success: true, data: configData });
   } catch (error) {

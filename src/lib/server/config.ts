@@ -1,19 +1,22 @@
-import fs from 'fs';
-import path from 'path';
 import { Config, SKELETON_CONFIG } from '@/utils/config';
+import dbConnect from '@/utils/mongoose';
+import ConfigModel from '@/models/Config';
 
 /**
- * Server-only utility to read config.json.
- * This file should NEVER be imported by a Client Component.
+ * Server-only utility to fetch config directly from MongoDB.
+ * Replaces the old static file read to support dynamic updates on Vercel.
  */
-export function getServerConfig(): Config {
+export async function getServerConfig(): Promise<Config> {
   try {
-    const configPath = path.join(process.cwd(), 'src/data/config.json');
-    if (fs.existsSync(configPath)) {
-      return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    await dbConnect();
+    const dbConfig = await ConfigModel.findOne().sort({ updatedAt: -1 });
+    
+    if (dbConfig) {
+      const configData = dbConfig.toObject();
+      return configData as Config;
     }
   } catch (error) {
-    console.error('Server Config Loader: config.json missing or invalid.');
+    console.error('Server Config Loader: Database fetch failed.', error);
   }
   
   return SKELETON_CONFIG;
