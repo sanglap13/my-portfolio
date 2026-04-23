@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
-import { Config, getConfig } from '@/utils/config';
+import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
 
 export default function InformalFull({ data, className, globalConfig }: { data: Config['informal']; className?: string; globalConfig: Config['global'] }) {

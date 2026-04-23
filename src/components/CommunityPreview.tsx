@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 
-import { Config, getConfig } from '@/utils/config';
+import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
 
 export default function CommunityPreview({ data, className, globalConfig }: { data: Config['community']; className?: string; globalConfig: Config['global'] }) {

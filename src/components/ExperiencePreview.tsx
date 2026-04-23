@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import { staggerContainer, fadeUpVariant, fadeLeftVariant } from '@/utils/animations';
 
-import { Config, getConfig } from '@/utils/config';
+import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
 
 export default function ExperiencePreview({

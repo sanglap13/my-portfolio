@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
-import { getConfig } from '@/utils/config';
+import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
 
 type CommunityEntry = {
@@ -131,16 +131,9 @@ export default function CommunityFull({ data, className, globalConfig }: { data:
 
   const filtered = activeRole === 'All' ? sorted : sorted.filter((e) => getRole(e.title) === activeRole);
 
-  if (globalConfig?.underConstruction?.community) {
-    return (
-      <section className={cn("py-24 bg-transparent relative z-10 w-full overflow-hidden px-4 md:px-8", className)}>
-        <UnderConstruction title="Community & Events" config={globalConfig.underConstructionConfig} variant="page" />
-      </section>
-    );
-  }
-
   // Compute stats
   const stats = useMemo(() => {
+    if (!data || !Array.isArray(data)) return [];
     const speakers = data.filter(d => getRole(d.title) === 'Speaker').length;
     const hackathons = data.filter(d => getRole(d.title) === 'Mentor & Judge').length;
     
@@ -160,6 +153,15 @@ export default function CommunityFull({ data, className, globalConfig }: { data:
       { label: 'Cities', value: `${cityCount}+` },
     ];
   }, [data]);
+
+  if (globalConfig?.underConstruction?.community) {
+    return (
+      <section className={cn("py-24 bg-transparent relative z-10 w-full overflow-hidden px-4 md:px-8", className)}>
+        <UnderConstruction title="Community & Events" config={globalConfig.underConstructionConfig} variant="page" />
+      </section>
+    );
+  }
+
 
   if (!data || data.length === 0) return null;
 
