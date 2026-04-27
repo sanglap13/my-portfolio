@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface MediaUploaderProps {
   value: string;
@@ -71,7 +72,9 @@ export default function MediaUploader({
             resourceType === 'video' ? (
               <video src={value} className="w-full h-full object-cover" muted />
             ) : (
-              <img src={value} alt="Preview" className="w-full h-full object-cover" />
+              <div className="relative w-full h-full">
+                <Image src={value} alt="Preview" fill sizes="96px" className="object-cover" />
+              </div>
             )
           ) : (
             <span className="text-gray-600 text-2xl">{uploading ? '⏳' : '+'}</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
@@ -80,7 +81,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
           >
              <div className="aspect-[4/5] rounded-[2.5rem] bg-gradient-to-br from-theme-amber/20 to-orange-500/10 border border-white/10 overflow-hidden relative group">
                 {data.heroImage ? (
-                  <img src={data.heroImage} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
+                  <Image src={data.heroImage} alt="Hero" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
                 ) : (
                   <>
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]" />
@@ -205,7 +206,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                 className="aspect-square md:aspect-auto lg:col-span-2 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[0] ? (
-                    <img src={data.photos[0]} alt="Gallery 1" className="absolute inset-0 w-full h-full object-cover" />
+                    <Image src={data.photos[0]} alt="Gallery 1" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:40px_40px]" />
@@ -225,7 +226,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                 className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-2 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[1] ? (
-                    <img src={data.photos[1]} alt="Gallery 2" className="absolute inset-0 w-full h-full object-cover" />
+                    <Image src={data.photos[1]} alt="Gallery 2" fill sizes="(max-width: 1024px) 100vw, 25vw" className="object-cover" />
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -244,7 +245,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                 className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[2] ? (
-                    <img src={data.photos[2]} alt="Gallery 3" className="absolute inset-0 w-full h-full object-cover" />
+                    <Image src={data.photos[2]} alt="Gallery 3" fill sizes="(max-width: 1024px) 100vw, 25vw" className="object-cover" />
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -263,7 +264,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                 className="aspect-square md:aspect-auto lg:col-span-1 lg:row-span-1 rounded-[2.5rem] bg-[#1a1a1f] border border-white/[0.08] overflow-hidden relative group"
               >
                   {data.photos && data.photos[3] ? (
-                    <img src={data.photos[3]} alt="Gallery 4" className="absolute inset-0 w-full h-full object-cover" />
+                    <Image src={data.photos[3]} alt="Gallery 4" fill sizes="(max-width: 1024px) 100vw, 25vw" className="object-cover" />
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px]" />

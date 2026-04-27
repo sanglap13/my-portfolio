@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const MotionImage = motion(Image);
 import { cn } from '@/utils/cn';
 import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
@@ -48,11 +51,13 @@ function ImageCarousel({ images }: { images: string[] }) {
     <div className="relative w-full h-full group/carousel flex items-center justify-center bg-[#15151a]">
       <AnimatePresence mode="wait">
         {!currentImageHasError ? (
-          <motion.img
+          <MotionImage
             key={`${images[index]}-${index}`}
             src={images[index]}
             alt="Carousel Step"
             onError={() => handleImageError(index)}
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}

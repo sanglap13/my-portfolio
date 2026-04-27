@@ -3,11 +3,12 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { staggerContainer, fadeUpVariant } from '@/utils/animations';
 import MagneticButton from '@/components/MagneticButton';
 
-import { Config, getConfig } from '@/utils/config';
+import { Config } from '@/utils/config';
 import UnderConstruction from './UnderConstruction';
 
 function GlowCard({ children, className, glowColor }: { children: React.ReactNode, className?: string, glowColor?: string }) {
@@ -86,7 +87,7 @@ export default function InformalPreview({ data, className, globalConfig }: { dat
         >
           {data.heroImage ? (
             <div className="absolute inset-0 z-[-1]">
-              <img src={data.heroImage} alt="Hero" className="w-full h-full object-cover" />
+              <Image src={data.heroImage} alt="Hero" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             </div>
           ) : (
             <div className="absolute inset-0 z-[-1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -117,7 +118,7 @@ export default function InformalPreview({ data, className, globalConfig }: { dat
           className="md:col-span-1 md:row-span-1 min-h-[250px] md:min-h-0 rounded-[2rem] bg-white/5 border border-white/10 hover:border-theme-amber/50"
         >
           {data.photos && data.photos[0] ? (
-            <img src={data.photos[0]} alt="Gallery 1" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src={data.photos[0]} alt="Gallery 1" fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
               <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">
@@ -135,7 +136,7 @@ export default function InformalPreview({ data, className, globalConfig }: { dat
           className="md:col-span-1 md:row-span-1 min-h-[250px] md:min-h-0 rounded-[2rem] bg-white/5 border border-white/10 hover:border-theme-indigo/50"
         >
           {data.photos && data.photos[1] ? (
-            <img src={data.photos[1]} alt="Gallery 2" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src={data.photos[1]} alt="Gallery 2" fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-xs font-mono text-gray-500 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px]">
               <span className="text-3xl mb-2 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all">

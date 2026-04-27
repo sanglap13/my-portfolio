@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/utils/cn';
@@ -85,9 +86,11 @@ export default function CommunityPreview({ data, className, globalConfig }: { da
               <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#121212] via-[#121212]/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="absolute inset-0 z-[-1] bg-white/5 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
                 {item.image && (
-                  <img 
+                  <Image 
                     src={Array.isArray(item.image) ? item.image[0] : item.image} 
                     alt={item.title} 
+                    fill
+                    sizes="(max-width: 768px) 85vw, 500px"
                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
                   />
                 )}
