@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/utils/mongoose';
 import ConfigModel from '@/models/Config';
 import fs from 'fs';
@@ -74,7 +75,16 @@ export async function PATCH(req: Request) {
 
     await config.save();
 
-    console.log('✅ Config updated in MongoDB via dashboard PATCH.');
+    // Trigger revalidation for all pages that use the config
+    revalidatePath('/');
+    revalidatePath('/about');
+    revalidatePath('/experience');
+    revalidatePath('/projects');
+    revalidatePath('/community');
+    revalidatePath('/informal');
+    revalidatePath('/contact');
+
+    console.log('✅ Config updated in MongoDB and revalidation triggered.');
     
     const configData = config.toObject();
     delete configData._id;
