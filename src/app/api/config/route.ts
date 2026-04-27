@@ -31,6 +31,19 @@ export async function GET() {
           ...SKELETON_CONFIG.global.underConstruction,
           ...(data.global?.underConstruction || {})
         }
+      },
+      informal: {
+        ...SKELETON_CONFIG.informal,
+        ...(data.informal || {}),
+        heroText: { ...SKELETON_CONFIG.informal.heroText, ...(data.informal?.heroText || {}) },
+        badge: { ...SKELETON_CONFIG.informal.badge, ...(data.informal?.badge || {}) },
+        gallery: { 
+          ...SKELETON_CONFIG.informal.gallery, 
+          ...(data.informal?.gallery || {}),
+          items: data.informal?.gallery?.items || SKELETON_CONFIG.informal.gallery.items 
+        },
+        followSection: { ...SKELETON_CONFIG.informal.followSection, ...(data.informal?.followSection || {}) },
+        stats: data.informal?.stats || SKELETON_CONFIG.informal.stats
       }
     };
 

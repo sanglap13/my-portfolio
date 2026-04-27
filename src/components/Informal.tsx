@@ -49,26 +49,41 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="geist-mono text-xs uppercase tracking-[0.4em] text-theme-amber/60 mb-6 font-bold">The Philosophy</p>
+            <p className="geist-mono text-xs uppercase tracking-[0.4em] text-theme-amber/60 mb-6 font-bold">{data.heroText?.overline || 'The Philosophy'}</p>
             <h2 className="geist-sans text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-              Life isn&apos;t meant to be lived <span className="text-theme-amber underline decoration-theme-amber/30 underline-offset-8 italic">only</span> behind a screen.
+              {(data.heroText?.title || "Life isn't meant to be lived {only} behind a screen.").split(/(\{.*?\})/g).map((part, i) => {
+                if (part.startsWith('{') && part.endsWith('}')) {
+                  return <span key={i} className="text-theme-amber underline decoration-theme-amber/30 underline-offset-8 italic">{part.slice(1, -1)}</span>;
+                }
+                return part;
+              })}
             </h2>
             <p className="geist-mono text-gray-400 text-lg md:text-xl leading-relaxed max-w-xl">
               {data.description}
             </p>
-            <div className="mt-12 flex gap-8">
-              <div className="flex flex-col">
-                <span className="geist-sans text-3xl font-bold text-white">20K+</span>
-                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Video Views</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="geist-sans text-3xl font-bold text-white">{data.countriesCount}</span>
-                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Countries</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="geist-sans text-3xl font-bold text-white">{data.statesCount}+</span>
-                <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">States Explored</span>
-              </div>
+            <div className="mt-12 flex gap-8 flex-wrap">
+              {(data.stats || []).map((stat, i) => (
+                <div key={i} className="flex flex-col min-w-[100px]">
+                  <span className="geist-sans text-3xl font-bold text-white">{stat.value}</span>
+                  <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">{stat.label}</span>
+                </div>
+              ))}
+              {!data.stats && (
+                <>
+                  <div className="flex flex-col">
+                    <span className="geist-sans text-3xl font-bold text-white">20K+</span>
+                    <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Video Views</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="geist-sans text-3xl font-bold text-white">{data.countriesCount}</span>
+                    <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Countries</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="geist-sans text-3xl font-bold text-white">{data.statesCount}+</span>
+                    <span className="geist-mono text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">States Explored</span>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
 
@@ -93,7 +108,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-10 left-10">
                    <p className="geist-mono text-xs uppercase tracking-widest text-white/40 mb-2">Adventure Awaits</p>
-                   <p className="geist-sans text-2xl font-bold text-white leading-tight">Rolling the throttle <br /> since 2018.</p>
+                   <p className="geist-sans text-2xl font-bold text-white leading-tight">{data.heroText?.subtitle || "Rolling the throttle since 2018."}</p>
                 </div>
              </div>
              {/* Floating badge */}
@@ -102,9 +117,9 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-theme-amber border border-amber-400/50 flex flex-col items-center justify-center rotate-12 shadow-[0_0_30px_rgba(245,158,11,0.3)] z-20"
              >
-                <span className="geist-mono text-[10px] font-black text-black uppercase tracking-tight">Traveler</span>
-                <span className="geist-sans text-xl font-black text-black">9.6K km</span>
-                <span className="geist-mono text-[8px] font-bold text-black/60 uppercase">Last trip</span>
+                <span className="geist-mono text-[10px] font-black text-black uppercase tracking-tight">{data.badge?.top || "Traveler"}</span>
+                <span className="geist-sans text-xl font-black text-black">{data.badge?.middle || "9.6K km"}</span>
+                <span className="geist-mono text-[8px] font-bold text-black/60 uppercase">{data.badge?.bottom || "Last trip"}</span>
              </motion.div>
           </motion.div>
         </div>
@@ -191,11 +206,11 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
         <div className="flex flex-col gap-12">
             <div className="flex justify-between items-end border-b border-white/5 pb-8">
               <div>
-                <p className="geist-mono text-[10px] uppercase tracking-[0.5em] text-theme-amber/70 font-bold mb-4">Perspective</p>
-                <h2 className="geist-sans text-3xl md:text-5xl font-bold text-white tracking-tight">The Gallery</h2>
+                <p className="geist-mono text-[10px] uppercase tracking-[0.5em] text-theme-amber/70 font-bold mb-4">{data.gallery?.overline || "Perspective"}</p>
+                <h2 className="geist-sans text-3xl md:text-5xl font-bold text-white tracking-tight">{data.gallery?.title || "The Gallery"}</h2>
               </div>
               <p className="geist-mono text-xs text-gray-500 max-w-[200px] text-right hidden md:block uppercase tracking-wider leading-relaxed">
-                Moments frozen in time, captured across diverse landscapes and cultures as I explorer the world on two wheels.
+                {data.gallery?.description || "Moments frozen in time, captured across diverse landscapes and cultures."}
               </p>
             </div>
 
@@ -215,8 +230,8 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                   <div className="absolute bottom-10 left-10">
-                      <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">Mountain Expedition · 2024</span>
-                      <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">Hidden Trails & Overlooks</h4>
+                      <span className="geist-mono text-[10px] text-theme-amber uppercase tracking-widest font-bold mb-2 block">{data.gallery?.items?.[0]?.overline || "Mountain Expedition · 2024"}</span>
+                      <h4 className="geist-sans text-3xl font-bold text-white underline decoration-white/20 underline-offset-8">{data.gallery?.items?.[0]?.title || "Hidden Trails & Overlooks"}</h4>
                   </div>
               </motion.div>
 
@@ -235,7 +250,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-40 group-hover:opacity-70 transition-opacity" />
                   <div className="absolute bottom-8 left-8">
-                     <h4 className="geist-sans text-xl font-bold text-white">Midnight Rider</h4>
+                     <h4 className="geist-sans text-xl font-bold text-white">{data.gallery?.items?.[1]?.title || "Midnight Rider"}</h4>
                   </div>
               </motion.div>
 
@@ -254,7 +269,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-40 group-hover:opacity-70 transition-opacity" />
                   <div className="absolute bottom-8 left-8">
-                     <h4 className="geist-sans text-lg font-bold text-white">The Gear</h4>
+                     <h4 className="geist-sans text-lg font-bold text-white">{data.gallery?.items?.[2]?.title || "The Gear"}</h4>
                   </div>
               </motion.div>
 
@@ -273,7 +288,7 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-40 group-hover:opacity-70 transition-opacity" />
                   <div className="absolute bottom-8 left-8">
-                     <h4 className="geist-sans text-lg font-bold text-white">Golden Hour</h4>
+                     <h4 className="geist-sans text-lg font-bold text-white">{data.gallery?.items?.[3]?.title || "Golden Hour"}</h4>
                   </div>
               </motion.div>
             </div>
@@ -288,9 +303,14 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(245,158,11,0.1),transparent_70%)]" />
           <div className="relative z-10 max-w-2xl mx-auto">
-             <h2 className="geist-sans text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">Follow the Ride.</h2>
+             <h2 className="geist-sans text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">{data.followSection?.title || "Follow the Ride."}</h2>
              <p className="geist-mono text-gray-400 text-lg mb-12">
-               I share my adventures and gear reviews as <span className="text-white font-bold">{data.creatorName}</span> across all social platforms. Let&apos;s explore together.
+               {(data.followSection?.subtitle || `I share my adventures and gear reviews as {${data.creatorName}} across all social platforms. Let's explore together.`).split(/(\{.*?\})/g).map((part, i) => {
+                 if (part.startsWith('{') && part.endsWith('}')) {
+                   return <span key={i} className="text-white font-bold italic">{part.slice(1, -1)}</span>;
+                 }
+                 return part;
+               })}
              </p>
              <div className="flex flex-wrap justify-center gap-6">
                 <a href={data.youtubeUrl} target="_blank" rel="noopener noreferrer" className="geist-mono px-8 py-4 bg-white text-black rounded-full font-black hover:bg-theme-amber hover:scale-105 transition-all duration-300">YouTube</a>

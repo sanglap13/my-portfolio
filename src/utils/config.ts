@@ -56,6 +56,11 @@ export interface Config {
     description: string;
     video: { title: string; placeholder: string };
     heroImage: string;
+    stats: Array<{ value: string; label: string }>;
+    heroText: { overline: string; title: string; subtitle: string };
+    badge: { top: string; middle: string; bottom: string };
+    gallery: { overline: string; title: string; description: string; items: Array<{ overline: string; title: string }> };
+    followSection: { title: string; subtitle: string };
     reels: Array<{ src: string; youtubeUrl: string; instaUrl: string; views: string; likes: string; title: string }>;
     photos: string[];
     [key: string]: any;
@@ -134,6 +139,36 @@ export const SKELETON_CONFIG: Config = {
       placeholder: ""
     },
     heroImage: "",
+    stats: [
+      { value: "20K+", label: "Video Views" },
+      { value: "12", label: "Countries" },
+      { value: "18+", label: "States Explored" }
+    ],
+    heroText: {
+      overline: "The Philosophy",
+      title: "Life isn't meant to be lived only behind a screen.",
+      subtitle: "Rolling the throttle since 2018."
+    },
+    badge: {
+      top: "Traveler",
+      middle: "9.6K km",
+      bottom: "Last trip"
+    },
+    gallery: {
+      overline: "Perspective",
+      title: "The Gallery",
+      description: "Moments frozen in time, captured across diverse landscapes and cultures.",
+      items: [
+        { overline: "Mountain Expedition · 2024", title: "Hidden Trails & Overlooks" },
+        { overline: "Nocturnal", title: "Midnight Rider" },
+        { overline: "The Gear", title: "Essential Kit" },
+        { overline: "Atmosphere", title: "Golden Hour" }
+      ]
+    },
+    followSection: {
+      title: "Follow the Ride.",
+      subtitle: "I share my adventures and gear reviews."
+    },
     reels: [],
     photos: []
   },
