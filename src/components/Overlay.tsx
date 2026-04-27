@@ -30,13 +30,13 @@ export default function Overlay({
       {/* Section 1 - Center */}
       <motion.div 
         style={{ opacity: opacity1, y: y1 }}
-        className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-center p-8 md:p-24 text-center"
       >
         <motion.h1 
           initial={{ scale: 1.1, opacity: 0, filter: "blur(10px)" }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="geist-sans text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white/80 mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] font-extrabold leading-[1.2]"
+          className="geist-sans text-4xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white/80 mb-4 drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] font-extrabold leading-[1.2]"
         >
           {content.section1.title}
         </motion.h1>
@@ -44,7 +44,7 @@ export default function Overlay({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-          className="geist-mono text-xl md:text-3xl text-white/60 font-medium tracking-wide drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]"
+          className="geist-mono text-lg md:text-3xl text-white/60 font-medium tracking-wide drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]"
         >
           {content.section1.subtitle}
         </motion.p>
@@ -70,9 +70,9 @@ export default function Overlay({
       {/* Section 2 - Left Quote 1 */}
       <motion.div 
         style={{ opacity: opacity2, y: y2 }}
-        className="absolute inset-0 flex flex-col items-start justify-center p-8 md:p-24 text-left"
+        className="absolute inset-0 flex flex-col items-start justify-end pb-32 md:justify-center p-8 md:p-24 text-left"
       >
-        <h2 className="geist-sans text-4xl md:text-6xl font-bold tracking-tight text-white/80 max-w-3xl text-balance drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] leading-tight py-2">
+        <h2 className="geist-sans text-3xl md:text-6xl font-bold tracking-tight text-white/80 max-w-3xl text-balance drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] leading-tight py-2">
           {content.section2.line1}
           <span className="geist-mono opacity-80 block bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent pb-3 pt-2 mt-1 leading-normal drop-shadow-[0_0_25px_rgba(168,85,247,0.5)]">
             {content.section2.line2}
@@ -83,9 +83,9 @@ export default function Overlay({
       {/* Section 3 - Right Quote 2 */}
       <motion.div 
         style={{ opacity: opacity3, y: y3 }}
-        className="absolute inset-0 flex flex-col items-end justify-center p-8 md:p-24 text-right"
+        className="absolute inset-0 flex flex-col items-end justify-end pb-8 md:justify-center p-8 md:p-24 text-right"
       >
-        <h2 className="geist-sans text-4xl md:text-6xl font-bold tracking-tight text-white/80 max-w-3xl text-balance drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] leading-tight py-2">
+        <h2 className="geist-sans text-3xl md:text-6xl font-bold tracking-tight text-white/80 max-w-3xl text-balance drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] leading-tight py-2">
           {content.section3.line1}
           <span className="geist-mono opacity-80 block bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent pb-3 pt-2 mt-1 leading-normal drop-shadow-[0_0_25px_rgba(52,211,153,0.5)]">
             {content.section3.line2}
