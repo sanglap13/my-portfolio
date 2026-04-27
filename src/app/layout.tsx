@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Sanglap Mridha | Software Developer",
@@ -18,6 +20,8 @@ export default function RootLayout({
         <ClientLayoutWrapper>
           {children}
         </ClientLayoutWrapper>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
