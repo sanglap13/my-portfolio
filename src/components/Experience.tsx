@@ -85,17 +85,17 @@ export default function Experience({
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-theme-indigo/[0.12] blur-[120px]"
+          className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-theme-indigo/[0.12] blur-[80px] will-change-transform"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[60%] right-[10%] w-[400px] h-[400px] rounded-full bg-theme-amber/[0.10] blur-[100px]"
+          className="absolute top-[60%] right-[10%] w-[400px] h-[400px] rounded-full bg-theme-amber/[0.10] blur-[70px] will-change-transform"
         />
         <motion.div
           animate={{ x: [0, 20, 0], y: [0, -20, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full bg-purple-500/[0.08] blur-[80px]"
+          className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full bg-purple-500/[0.08] blur-[60px] will-change-transform"
         />
 
         {/* Radial glow */}

@@ -177,12 +177,12 @@ export default function CommunityFull({ data, className, globalConfig }: { data:
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[20%] left-[15%] w-[400px] h-[400px] rounded-full bg-theme-amber/[0.10] blur-[120px]"
+          className="absolute top-[20%] left-[15%] w-[400px] h-[400px] rounded-full bg-theme-amber/[0.10] blur-[80px] will-change-transform"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[55%] right-[15%] w-[350px] h-[350px] rounded-full bg-theme-indigo/[0.08] blur-[100px]"
+          className="absolute top-[55%] right-[15%] w-[350px] h-[350px] rounded-full bg-theme-indigo/[0.08] blur-[70px] will-change-transform"
         />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#121212] to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#121212] to-transparent" />

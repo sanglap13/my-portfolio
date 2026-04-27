@@ -40,7 +40,7 @@ export default function PersonalSection({ data, globalConfig }: { data: Config['
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="relative z-20 w-full bg-white/[0.02] backdrop-blur-3xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
+        className="relative z-20 w-full bg-white/[0.02] backdrop-blur-xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
       >
         <UnderConstruction title="About Me" config={globalConfig.underConstructionConfig} variant="section" />
       </motion.section>
@@ -53,7 +53,7 @@ export default function PersonalSection({ data, globalConfig }: { data: Config['
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="relative z-20 w-full bg-white/[0.02] backdrop-blur-3xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
+      className="relative z-20 w-full bg-white/[0.02] backdrop-blur-xl pt-32 pb-24 px-8 md:px-24 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-[3rem] -mt-10 mx-auto max-w-7xl"
     >
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 relative z-10">
         

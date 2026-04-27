@@ -21,7 +21,8 @@ export default function AmbientBackground() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-0 left-0 w-[40vw] h-[60vh] bg-theme-amber/15 rounded-full blur-[140px] mix-blend-screen"
+        className="absolute top-0 left-0 w-[40vw] h-[60vh] bg-theme-amber/15 rounded-full blur-[80px] mix-blend-screen will-change-transform"
+        style={{ transform: 'translateZ(0)' }}
       />
 
       {/* Light 2: Deep Indigo/Cyan (Right Side) */}
@@ -37,7 +38,8 @@ export default function AmbientBackground() {
           ease: "easeInOut",
           delay: 2
         }}
-        className="absolute bottom-0 right-0 w-[50vw] h-[70vh] bg-theme-indigo/15 rounded-full blur-[150px] mix-blend-screen"
+        className="absolute bottom-0 right-0 w-[50vw] h-[70vh] bg-theme-indigo/15 rounded-full blur-[90px] mix-blend-screen will-change-transform"
+        style={{ transform: 'translateZ(0)' }}
       />
     </div>
   );

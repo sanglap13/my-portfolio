@@ -28,12 +28,12 @@ export default function InformalFull({ data, className, globalConfig }: { data: 
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, -40, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-theme-amber/[0.08] blur-[120px]"
+          className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-theme-amber/[0.08] blur-[80px] will-change-transform"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 60, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] rounded-full bg-orange-500/[0.06] blur-[100px]"
+          className="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] rounded-full bg-orange-500/[0.06] blur-[70px] will-change-transform"
         />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#121212] to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#121212] to-transparent" />
