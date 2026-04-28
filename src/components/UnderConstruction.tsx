@@ -27,10 +27,10 @@ export default function UnderConstruction({ title, config, variant = 'section' }
             {title}
           </h2>
           <Link
-            href="/"
+            href={`/${title.toLowerCase()}`}
             className="geist-mono px-6 py-3 bg-white/5 border border-white/10 rounded-full font-semibold text-white transition-all duration-300 hover:bg-theme-indigo/10 hover:border-theme-indigo/50 hover:text-theme-indigo hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] w-fit flex items-center gap-2"
           >
-            Return Home <span>&rarr;</span>
+            See More <span>&rarr;</span>
           </Link>
         </motion.div>
       )}
